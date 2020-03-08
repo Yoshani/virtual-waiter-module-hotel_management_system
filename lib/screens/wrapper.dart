@@ -1,13 +1,14 @@
+import 'package:flutter/foundation.dart';
 import 'package:hotel_management_system/models/user/user.dart';
 import 'package:hotel_management_system/screens/authenticate/authenticate.dart';
 import 'package:hotel_management_system/screens/kitchen/kitchen.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_management_system/screens/kitchen/test.dart';
 import 'package:hotel_management_system/screens/manager/manager.dart';
 import 'package:hotel_management_system/screens/order_manager/order_manager_home.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/vwaiter_home.dart';
 import 'package:hotel_management_system/services/database.dart';
 import 'package:provider/provider.dart';
-
 
 class Wrapper extends StatefulWidget {
   @override
@@ -32,13 +33,13 @@ class _WrapperState extends State<Wrapper> {
       setState(() {
         widgt = Manager();
       });
-    }
-    else if (userdata.type == "Chef") {
+    } else if (userdata.type == "Chef") {
       setState(() {
         widgt = Kitchen();
       });
     }
   }
+
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context);
     if (user == null)
