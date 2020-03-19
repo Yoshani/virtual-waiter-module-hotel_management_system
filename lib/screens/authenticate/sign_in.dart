@@ -1,6 +1,6 @@
 import 'package:hotel_management_system/services/auth.dart';
-import 'package:hotel_management_system/shades/constants.dart';
-import 'package:hotel_management_system/shades/loading.dart';
+import 'package:hotel_management_system/shared/constants.dart';
+import 'package:hotel_management_system/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -96,7 +96,7 @@ class _SignInState extends State<SignIn> {
                     ),
                     SizedBox(height: 12.0),
                     Text(
-                      '${error}',
+                      '$error',
                       style: TextStyle(color: Colors.red, fontSize: 14.0),
                     )
                   ],
