@@ -1,6 +1,6 @@
 import 'package:hotel_management_system/services/auth.dart';
-import 'package:hotel_management_system/shared/constants.dart';
-import 'package:hotel_management_system/shared/loading.dart';
+import 'package:hotel_management_system/shades/constants.dart';
+import 'package:hotel_management_system/shades/loading.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
