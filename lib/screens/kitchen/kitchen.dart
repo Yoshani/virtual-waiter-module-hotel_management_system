@@ -1,6 +1,9 @@
 import 'package:hotel_management_system/screens/kitchen/edit_menu.dart';
-import 'package:flutter/material.dart';
+import 'package:hotel_management_system/models/kitchen/KitchenData.dart';
+import 'package:hotel_management_system/services/kitchen_database.dart';
+import 'package:hotel_management_system/screens/kitchen/foodItemList.dart';
 import 'package:hotel_management_system/services/auth.dart';
+import 'package:flutter/material.dart';
 
 class Kitchen extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -12,7 +15,7 @@ class Kitchen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Kitchen',
+          'Kitchenn',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -30,27 +33,39 @@ class Kitchen extends StatelessWidget {
       body: Container(
         child: ListView(children: [
           SizedBox(height: 30.0),
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: Image.asset(
-                    'assets/kitchen/friedrice.jpg',
-                    fit: BoxFit.cover,
+          Column(
+            children: <Widget>[
+              ListView(
+                children: <Widget>[
+                  Center(
+                    child: Container(
+                      height: 200,
+                      width: 300,
+                      child: Card(
+                        elevation: 15,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/friedrice.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.all(10),
+                      ),
+                    ),
                   ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
+                  Text("12"),
+                ],
               ),
-            ),
+            ],
           ),
           SizedBox(height: 20.0),
           Center(
@@ -129,7 +144,6 @@ class Kitchen extends StatelessWidget {
               width: 300,
               child: Card(
                 elevation: 15,
-
                 child: InkWell(
                   onTap: () {
                     print('1556');

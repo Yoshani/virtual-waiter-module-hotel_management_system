@@ -1,6 +1,7 @@
-
 import 'package:flutter/material.dart';
-
+import 'package:hotel_management_system/models/kitchen/KitchenData.dart';
+import 'package:hotel_management_system/services/kitchen_database.dart';
+import 'package:hotel_management_system/screens/kitchen/foodItemList.dart';
 
 class Test extends StatelessWidget {
   @override
@@ -14,158 +15,180 @@ class Test extends StatelessWidget {
         elevation: 0.0,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/coffee_bg.png')),
+        child: ListView(
+          children: <Widget>[
+            SizedBox(height: 20.0),
+            Container(
+              height: 200,
+              child: Card(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/rice-and-curry.jfif',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/friedrice.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(height: 20.0),
+            Container(
+              height: 200,
+              child: Card(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/rice-and-curry.jfif',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/friedrice.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Container(
+              height: 200,
+              child: Card(
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/rice-and-curry.jfif',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                    Container(
+                      height: 100,
+                      width: 200,
+                      child: Card(
+                        elevation: 5,
+                        child: InkWell(
+                          onTap: () async {
+                            List<ItemData> menuItems =
+                                await KitchenDatabase().getItemData();
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        FoodItemList(menuItems)));
+                          },
+                          child: Image.asset(
+                            'assets/kitchen/friedrice.jpg',
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        margin: EdgeInsets.fromLTRB(20, 60, 20, 20),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-        child: ListView(children: [
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: ClipRRect(
-                    borderRadius: (BorderRadius.circular(20.0)),
-                    child: Opacity(
-                      opacity: 0.8,
-                      child: Image.asset(
-                        'assets/friedrice.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          SizedBox(height: 20.0),
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: ClipRRect(
-                    borderRadius: (BorderRadius.circular(20.0)),
-                    child: Opacity(
-                      opacity: 0.8,
-                      child: Image.asset(
-                        'assets/friedrice.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          SizedBox(height:20.0),
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: ClipRRect(
-                    borderRadius: (BorderRadius.circular(20.0)),
-                    child: Opacity(
-                      opacity: 0.8,
-                      child: Image.asset(
-                        'assets/friedrice.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: ClipRRect(
-                    borderRadius: (BorderRadius.circular(20.0)),
-                    child: Opacity(
-                      opacity: 0.8,
-                      child: Image.asset(
-                        'assets/friedrice.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-          ),
-          Center(
-            child: Container(
-              height: 200,
-              width: 300,
-              child: Card(
-                elevation: 15,
-
-                child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: ClipRRect(
-                    borderRadius: (BorderRadius.circular(20.0)),
-                    child: Opacity(
-                      opacity: 0.8,
-                      child: Image.asset(
-                        'assets/friedrice.jpg',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                ),
-                // shape: RoundedRectangleBorder(
-                //   borderRadius: BorderRadius.circular(10.0),
-                // ),
-                margin: EdgeInsets.all(10),
-              ),
-            ),
-          ),
-        ]),
       ),
     );
   }

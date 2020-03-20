@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:hotel_management_system/models/user/user.dart';
 import 'package:hotel_management_system/screens/authenticate/authenticate.dart';
+import 'package:hotel_management_system/screens/kitchen/edit_menu.dart';
 import 'package:hotel_management_system/screens/kitchen/kitchen.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/screens/kitchen/test.dart';
@@ -35,7 +36,7 @@ class _WrapperState extends State<Wrapper> {
       });
     } else if (userdata.type == "Chef") {
       setState(() {
-        widgt = Kitchen();
+        widgt = Test();
       });
     }
   }
