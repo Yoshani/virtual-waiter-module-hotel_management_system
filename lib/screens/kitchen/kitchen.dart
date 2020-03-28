@@ -1,9 +1,14 @@
+import 'dart:ui';
+
 import 'package:hotel_management_system/screens/kitchen/edit_menu.dart';
 import 'package:hotel_management_system/models/kitchen/KitchenData.dart';
 import 'package:hotel_management_system/services/kitchen_database.dart';
 import 'package:hotel_management_system/screens/kitchen/foodItemList.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:flutter/material.dart';
+
+
+
 
 class Kitchen extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -15,7 +20,7 @@ class Kitchen extends StatelessWidget {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Kitchenn',
+          'Kitchen',
           style: TextStyle(color: Colors.black),
         ),
         backgroundColor: Colors.white,
@@ -145,14 +150,34 @@ class Kitchen extends StatelessWidget {
               child: Card(
                 elevation: 15,
                 child: InkWell(
-                  onTap: () {
-                    print('1556');
-                  },
-                  child: Image.asset(
-                    'assets/kitchen/icecream.jpg',
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                    onTap: () {
+                      print('1556');
+                    },
+                    child: Container(
+                      height: 200,
+                      width: double.maxFinite,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          image: ExactAssetImage("your_chocolage_image"),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      child: ClipRRect(
+                        // make sure we apply clip it properly
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                          child: Container(
+                            alignment: Alignment.center,
+                            color: Colors.grey.withOpacity(0.1),
+                            child: Text(
+                              "Rice & curry",
+                              style: TextStyle(
+                                  fontSize: 28, fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                      ),
+                    )),
                 margin: EdgeInsets.all(10),
               ),
             ),
