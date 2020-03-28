@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/user/user.dart';
 import 'package:hotel_management_system/services/auth.dart';
+import 'package:hotel_management_system/models/user/user.dart';
+
 
 class OrderManagerHome extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   Widget build(BuildContext context) {
     List<Object> _list = [
-      {'name': 'Asanka', 'id': '123'},
-      {'name': 'Ishara', 'id': '123'},
-      {'name': 'DFg', 'id': '123'}
+       {'id':21,'name':"asamka"},
+       {'id':21,'name':"asamka"},
+       {'id':21,'name':"asamka"}
     ];
     
 
@@ -35,7 +37,7 @@ class OrderManagerHome extends StatelessWidget {
         crossAxisCount: 2,
         crossAxisSpacing: 10,
         childAspectRatio: 1,
-        children: _list.map((value) {
+        children: _list.map<Object>((value) {
           return Container(
             width: 200,
             height: 200,
@@ -44,7 +46,7 @@ class OrderManagerHome extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
-            child: Text("value3"),
+            child: Text(Object.fromMap(value)),
           );
         }).toList(),
       ),
