@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_management_system/models/kitchen/menu.dart';
 import 'package:hotel_management_system/models/kitchen/menuItem.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'menu_list.dart';
 import 'package:hotel_management_system/services/vwaiter_database.dart';
 import 'package:provider/provider.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 class VwaiterHome extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   Widget build(BuildContext context) {
-    return StreamProvider<List<MenuItem>>.value(
-        value: VWaiterDatabase().menuItems,
+    return StreamProvider<List<Menu>>.value(
+        value: VWaiterDatabase().menu,
         child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
@@ -39,6 +41,54 @@ class VwaiterHome extends StatelessWidget {
           ),
           ],
         ),
+                  floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          floatingActionButton: FloatingActionButton(
+            onPressed: () { },
+            tooltip: 'Increment',
+            // child: Image(image: AssetImage(
+            //   'cart.png',
+            // ),
+            // fit: BoxFit.cover,),
+            child: Icon(Icons.shopping_cart),
+            elevation: 10.0,
+          ),
+  //         bottomNavigationBar: BottomAppBar(
+  //   color: Colors.black,
+  //           child: Image.asset('assets/vwaiter/logo.jpg'),
+  // ),
+  // floatingActionButton: FloatingActionButton(onPressed: null),
+
+          // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: () { },
+          //   tooltip: 'Increment',
+          //   // child: Image(image: AssetImage(
+          //   //   'cart.png',
+          //   // ),
+          //   // fit: BoxFit.cover,),
+          //   child: Icon(Icons.shopping_cart),
+          //   elevation: 50.0,
+          // ),
+          // bottomNavigationBar: BottomAppBar(
+          //   elevation: 45.0,
+          //   child: new Row(
+          //     mainAxisSize: MainAxisSize.max,
+          //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //     children: <Widget>[
+          //       IconButton(
+          //         icon: Icon(Icons.menu),
+          //         color: Colors.white,
+          //         onPressed: () {},
+          //       ),
+          //       IconButton(
+          //         icon: Icon(Icons.search),
+          //         color: Colors.white,
+          //         onPressed: () {},
+          //       ),
+          //     ],
+          //   ),
+          //   color: Colors.white,
+          // ),
           body: Container(
             child: Column(
               children: <Widget>[
@@ -88,7 +138,51 @@ class VwaiterHome extends StatelessWidget {
                         fontSize: 20,
                       ),
                   )
-                )
+                ),
+                SizedBox(height: 30),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Container(                   
+                    padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+                    decoration: BoxDecoration(
+                      color: Colors.blue[200],
+                      borderRadius: BorderRadius.only(topRight: Radius.circular(50), bottomRight: Radius.circular(50))
+                    ),
+                    child: Text(
+                      "    Today's Special   ",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                        ),
+                    )
+                  ),
+                ),
+//             CarouselSlider(
+//               height: MediaQuery.of(context).size.height/2.4,
+//               items: map<Widget>(
+//                 foods,
+//                     (index, i){
+//                       Map food = foods[index];
+//                   return SliderItem(
+//                     img: food['img'],
+//                     isFav: false,
+//                     name: food['name'],
+//                     rating: 5.0,
+//                     raters: 23,
+//                   );
+//                 },
+//               ).toList(),
+//               autoPlay: true,
+// //                enlargeCenterPage: true,
+//               viewportFraction: 1.0,
+// //              aspectRatio: 2.0,
+//               onPageChanged: (index) {
+//                 setState(() {
+//                   _current = index;
+//                 });
+//               },
+//             ),
               ],
             )
           ),

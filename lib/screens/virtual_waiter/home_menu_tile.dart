@@ -1,9 +1,10 @@
+import 'package:hotel_management_system/models/kitchen/menu.dart';
 import 'package:hotel_management_system/models/kitchen/menuItem.dart';
 import 'package:flutter/material.dart';
 
 class HomeMenuTile extends StatelessWidget {
 
-  final MenuItem menuItem;
+  final Menu menuItem;
   HomeMenuTile({ this.menuItem });
 
   @override
@@ -35,7 +36,7 @@ class HomeMenuTile extends StatelessWidget {
                   children: <Widget>[
                     SizedBox(height: 10.0),
                     Text(
-                      menuItem.name,
+                      menuItem.category,
                       style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.w900,

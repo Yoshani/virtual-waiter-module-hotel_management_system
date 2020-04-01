@@ -1,7 +1,10 @@
+import 'item.dart';
+
 class MenuItem{
 
-  final String name;
+  final String type;
+  final Item item;
 
-  MenuItem({this.name});
+  MenuItem({this.type, this.item});
 
 }
