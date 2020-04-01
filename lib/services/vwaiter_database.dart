@@ -9,7 +9,7 @@ class VWaiterDatabase {
   final CollectionReference menuCollection =Firestore.instance.collection('main-menu');
 
 //item from snapshot
-Item _itemFromSnapshot(DocumentSnapshot docSnap){
+Item _itemFromSnapshot (DocumentSnapshot docSnap){
   print(docSnap.data['name']);
   return Item(
     available: docSnap.data['available'],
@@ -20,16 +20,28 @@ Item _itemFromSnapshot(DocumentSnapshot docSnap){
   );
 }
 
+// firestore.collection('users').document(userId).snapshots().asyncMap((snap) async {
+//       List<String> groceryListsArr = snap.data['groceryLists'];
+//       var groceryList = <DocumentSnapshot>[];
+//       for (var groceryPath in groceryListsArr) {
+//         groceryList.add(await firestore.document(groceryPath).get());
+//       }
+//       return groceryList;
+//     });
+
 //menu list from snapshot
-  List<Menu> _menuListFromSnapshot(QuerySnapshot snapshot){
+  List<Menu> _menuListFromSnapshot (QuerySnapshot snapshot){
     return snapshot.documents.map((doc){
       List<MenuItem> menuItems = new List<MenuItem>();
       for(int i=0; i<doc.data['menuItems'].length; i++){
         print(i);
+        print((doc.data['menuItems'][i]['item']).snapshots().map(_itemFromSnapshot));
           menuItems.add(
             MenuItem(
               type: doc.data['menuItems'][i]['type'],
-              item: _itemFromSnapshot(doc.data['menuItems'][i]['item'].snapshots()),  
+
+              
+              // item: _itemFromSnapshot((doc.data['menuItems'][i]['item']).get()),  
               // item: doc.data['menuItems'][i]['item'].snapshots().map(_itemFromSnapshot)
             )
           );
@@ -45,6 +57,7 @@ Item _itemFromSnapshot(DocumentSnapshot docSnap){
 
   // get menu list stream
   Stream<List<Menu>> get menu {
+    print(menuCollection.snapshots().map(_menuListFromSnapshot));
     return menuCollection.snapshots().map(_menuListFromSnapshot);
   }
 

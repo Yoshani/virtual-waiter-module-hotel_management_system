@@ -46,7 +46,7 @@ class OrderManagerHome extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
             ),
-            child: Text(Object.fromMap(value)),
+            // child: Text(Object.fromMap(value)),
           );
         }).toList(),
       ),
