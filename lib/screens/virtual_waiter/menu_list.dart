@@ -1,3 +1,4 @@
+import 'package:hotel_management_system/models/kitchen/menu.dart';
 import 'package:hotel_management_system/models/kitchen/menuItem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +13,7 @@ class _MenuListState extends State<MenuList> {
   @override
   Widget build(BuildContext context) {
 
-    final menuItems = Provider.of<List<MenuItem>>(context) ?? [];
+    final menuItems = Provider.of<List<Menu>>(context) ?? [];
 
     return Container(
       height: 65.0,

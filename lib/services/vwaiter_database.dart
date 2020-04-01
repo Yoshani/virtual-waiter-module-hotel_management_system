@@ -1,28 +1,54 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hotel_management_system/models/kitchen/item.dart';
+import 'package:hotel_management_system/models/kitchen/menu.dart';
 import 'package:hotel_management_system/models/kitchen/menuItem.dart';
 
 class VWaiterDatabase {
   
   //collection reference
-  final CollectionReference menuCollection =Firestore.instance.collection('my-menu');
+  final CollectionReference menuCollection =Firestore.instance.collection('main-menu');
 
-//menu list from snapshot
-List<MenuItem> _menuListFromSnapshot(QuerySnapshot snapshot){
-  // print("snaps");
-
-  return snapshot.documents.map((doc){
-    // print (doc.data['name']);
-    return MenuItem(
-      name: doc.data['name'] ?? '',
-    );
-  }).toList();
+//item from snapshot
+Item _itemFromSnapshot(DocumentSnapshot docSnap){
+  print(docSnap.data['name']);
+  return Item(
+    available: docSnap.data['available'],
+    name: docSnap.data['name'],
+    description: docSnap.data['description'],
+    persons: docSnap.data['persons'],
+    price: docSnap.data['price']
+  );
 }
 
-  // get menu list stream
-  Stream<List<MenuItem>> get menuItems {
-    return menuCollection.snapshots()
-      .map(_menuListFromSnapshot);
+//menu list from snapshot
+  List<Menu> _menuListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((doc){
+      List<MenuItem> menuItems = new List<MenuItem>();
+      for(int i=0; i<doc.data['menuItems'].length; i++){
+        print(i);
+          menuItems.add(
+            MenuItem(
+              type: doc.data['menuItems'][i]['type'],
+              item: _itemFromSnapshot(doc.data['menuItems'][i]['item'].snapshots()),  
+              // item: doc.data['menuItems'][i]['item'].snapshots().map(_itemFromSnapshot)
+            )
+          );
+      }
+      print(doc.data['menuItems']);
+      return Menu(
+        category: doc.data['category'] ?? '',
+        menuItems: menuItems ?? ''
+      );
+      
+    }).toList();
   }
+
+  // get menu list stream
+  Stream<List<Menu>> get menu {
+    return menuCollection.snapshots().map(_menuListFromSnapshot);
+  }
+
+
 
 // //get Menu data 
 //   Future<List<MenuItem>> getItemData() async {
