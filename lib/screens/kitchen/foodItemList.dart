@@ -17,37 +17,39 @@ FoodItemList(this.menuItems);
         
 
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          'Food Items',
-          style: TextStyle(color: Colors.black),
-        ),
-        iconTheme: IconThemeData(
-            color: Colors.black, //change your color here
-          ),
+    return SafeArea(
+          child: Scaffold(
         backgroundColor: Colors.white,
-        elevation: 1.5,
-        actions: <Widget>[
-          FlatButton.icon(
-            icon: Icon(Icons.person),
-            label: Text('Logout'),
-            onPressed: () async {
-              await _auth.signOut();
-            },
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            'Food Items',
+            style: TextStyle(color: Colors.black),
           ),
-        ],
-      ),
-      body: ListView.builder(
-      
-      itemCount: menuItems.length,
-      itemBuilder: (context,index){
-        return ItemTile(item:menuItems[index]);
-      },
+          iconTheme: IconThemeData(
+              color: Colors.blueAccent, //change your color here
+            ),
+          backgroundColor: Colors.white,
+          elevation: 0.5,
+          actions: <Widget>[
+            FlatButton.icon(
+              icon: Icon(Icons.person),
+              label: Text('Logout'),
+              onPressed: () async {
+                await _auth.signOut();
+              },
+            ),
+          ],
+        ),
+        body: ListView.builder(
         
-    ),
+        itemCount: menuItems.length,
+        itemBuilder: (context,index){
+          return ItemTile(item:menuItems[index]);
+        },
+          
+      ),
+      ),
     );
   }
 }

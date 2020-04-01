@@ -7,7 +7,7 @@ class User {
 class UserData {
   final String uid;
   final String name;
-  final int email;
+  final String email;
 
   final String type;
 

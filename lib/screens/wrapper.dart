@@ -5,6 +5,8 @@ import 'package:hotel_management_system/screens/kitchen/edit_menu.dart';
 import 'package:hotel_management_system/screens/kitchen/kitchen.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/screens/kitchen/test.dart';
+import 'package:hotel_management_system/screens/kitchen/test2.dart';
+import 'package:hotel_management_system/screens/kitchen/test3.dart';
 import 'package:hotel_management_system/screens/manager/manager.dart';
 import 'package:hotel_management_system/screens/order_manager/order_manager_home.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/vwaiter_home.dart';
