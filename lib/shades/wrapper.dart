@@ -9,6 +9,7 @@ import 'package:hotel_management_system/services/database.dart';
 import 'package:provider/provider.dart';
 
 import '../models/user/user.dart';
+import 'loading.dart';
 
 class Wrapper extends StatefulWidget {
   @override
@@ -36,6 +37,8 @@ class _WrapperState extends State<Wrapper> {
       return FutureBuilder(
         future: getUserType(user),
         builder: (context, userdata) {
+            
+          if(userdata.hasData){
           Widget widgt;
           if (userdata.connectionState == ConnectionState.done) {
             print(userdata.data.type);
@@ -57,7 +60,8 @@ class _WrapperState extends State<Wrapper> {
             );
           }
           return widgt;
-        },
+        }else{return Loading();}
+        }
       );
     }
   }
