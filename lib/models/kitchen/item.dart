@@ -8,8 +8,10 @@ class Item{
   final String description;
   final int persons;
   final int price;
+  final String image;
+  final String category;
 
-  Item({this.itemId, this.available, this.name, this.description, this.persons, this.price });
+  Item({this.itemId, this.available, this.name, this.description, this.persons, this.price, this.image, this.category });
 
 
   factory Item.fromFirestore(DocumentSnapshot doc) {

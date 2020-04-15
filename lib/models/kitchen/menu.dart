@@ -6,7 +6,8 @@ class Menu{
 
   final String category;
   final List menuItems;
+  final String imageName;
 
-  Menu({this.category, this.menuItems});
+  Menu({this.category, this.menuItems, this.imageName});
 
 }

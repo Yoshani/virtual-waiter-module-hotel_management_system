@@ -12,17 +12,20 @@ class CategoriesScreen extends StatefulWidget {
   final String category;
   final Menu menu;
 
+
   CategoriesScreen({this.category, this.menu});
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  String category;
+
   Menu menu;
+  var image;
   // List<MenuItem> menuItems;
   List<String> catItemsIdList = [];
   List<Item> categoryItemList = [];
+  List<Item> itemList2;
   final AuthService _auth = AuthService();
 
 // void addItemId() {
@@ -30,13 +33,15 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 //     catItemsIdList.add(menuItem.itemId);
 //   });
 // }
-
+// Future getImage() async {
+//   var result = await VWaiterDatabase2().getImageURL(menu.imageName); 
+//     image = result;
+//   return image;
+// }
 
   @override
-  void initState() {
-    category = widget.category;
+  initState() {
     menu = widget.menu;
-    // addItemId();
     super.initState();
   }
   
@@ -48,107 +53,117 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         if(snapshot.hasData){
           List<Menu> menuList = snapshot.data;
           return StreamBuilder<List<Item>>(
-            stream: VWaiterDatabase2().asStream(menu),
+            stream: VWaiterDatabase2().getItemList(menu.category),
             builder: (context, snapshot) {
-              if(snapshot.hasData){
-                List<Item> itemList = snapshot.data;
-                // itemList.forEach((item){
-                //   if(!item.available || !catItemsIdList.contains(item.itemId)){
-                //     itemList.remove(item);
-                //   }
-                // });
-              
-                return Scaffold(
-                  backgroundColor: Colors.white,
-                  appBar: AppBar(
-                    automaticallyImplyLeading: false,
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.keyboard_backspace,
-                        color: Colors.black,
-                      ),
-                        onPressed: () => Navigator.popUntil(
-                          context,
-                          ModalRoute.withName('/'),
+              if(snapshot.hasData ){
+                List<Item> itemList = snapshot.data;             
+                return FutureBuilder(
+                  future: VWaiterDatabase2().getImageURL(menu.imageName),
+                  builder: (context, image) {
+                    if (!image.hasData){
+                      return Loading();
+                    }
+                    return Scaffold(
+                      backgroundColor: Colors.white,
+                      appBar: AppBar(
+                        automaticallyImplyLeading: false,
+                        leading: IconButton(
+                          icon: Icon(
+                            Icons.keyboard_backspace,
+                            color: Colors.black,
+                          ),
+                            onPressed: () => Navigator.popUntil(
+                              context,
+                              ModalRoute.withName('/'),
+                            ),
                         ),
-                    ),
-                    centerTitle: true,
-                    backgroundColor: Colors.white,
-                    elevation: 1.5,
-                    actions: <Widget>[PopupMenuButton<Widget>(
-                    itemBuilder: (context) => [
-                      PopupMenuItem(
-                        child:  FlatButton.icon(
-                          icon: Icon(Icons.person),
-                          label: Text('Logout'),
-                          onPressed: () async {
-                            Navigator.pop(context);
-                            await _auth.signOut();
-                          },
-                        ),
-                      ),
-                    ],
-                    icon: Icon(
-                      Icons.menu,
-                      color: Colors.black,
-                    )  
-                    ),
-                    ],
-                  ),
-
-                  body: Container(
-                    child: Column(
-                      children: <Widget>[
-                        SizedBox(height: 20.0),
-                          Container(
-                            height: 65.0,
-                            child: ListView.builder(
-                              itemCount: menuList.length,
-                              scrollDirection: Axis.horizontal,
-                              shrinkWrap: true,
-                              itemBuilder: (context, index) {
-                                return HomeMenuTile(
-                                  isHome: false,
-                                  menu: menuList[index],
-                                  tap: () {
-                                  setState((){
-                                    category=menuList[index].category; 
-                                    menu=menuList[index];
-                                  });
-                                  }
-                                );
+                        centerTitle: true,
+                        backgroundColor: Colors.white,
+                        elevation: 1.5,
+                        actions: <Widget>[PopupMenuButton<Widget>(
+                        itemBuilder: (context) => [
+                          PopupMenuItem(
+                            child:  FlatButton.icon(
+                              icon: Icon(Icons.person),
+                              label: Text('Logout'),
+                              onPressed: () async {
+                                Navigator.pop(context);
+                                await _auth.signOut();
                               },
                             ),
                           ),
-                              
-                        Divider(),
-                        SizedBox(height: 20.0),
-                        Text(
-                          menu.category,
-                          style: TextStyle(
-                            fontSize: 23,
-                            fontWeight: FontWeight.w800,
-                          ),
+                        ],
+                        icon: Icon(
+                          Icons.menu,
+                          color: Colors.black,
+                        )  
                         ),
-                        
-                        SizedBox(height: 10.0),
-                      
-                        Container(
-                          child: ListView.builder(
-                            itemCount: itemList.length,
-                            shrinkWrap: true,
-                            itemBuilder: (context, index) {
-                            return ItemTile(
-                              item: itemList[index],
-                              menuList: menuList
-                            );
-                            },
-                          ),
-                        ),
+                        ],
+                      ),
 
-                      ],
-                    ),
-                  ),
+                      body: Container(
+                        child: Column(
+                          children: <Widget>[
+                            SizedBox(height: 20.0),
+                              Container(
+                                height: 65.0,
+                                child: ListView.builder(
+                                  itemCount: menuList.length,
+                                  scrollDirection: Axis.horizontal,
+                                  shrinkWrap: true,
+                                  itemBuilder: (context, index) {
+                                    return HomeMenuTile(
+                                      isHome: false,
+                                      menu: menuList[index],
+                                      tap: () {
+                                      setState((){
+                                        menu=menuList[index];
+                                      });
+                                      }
+                                    );
+                                  },
+                                ),
+                              ),
+                                  
+                            Divider(),
+                            SizedBox(height: 20.0),
+                            Text(
+                              menu.category,
+                              style: TextStyle(
+                                fontSize: 23,
+                                fontWeight: FontWeight.w800,
+                              ),
+                            ),
+                            FadeInImage.assetNetwork(
+                              placeholder: 'assets/loader.gif',
+                              image: image.data,
+                              fit: BoxFit.fill,
+                              height: 400,
+                            ),
+                            
+                            SizedBox(height: 10.0),
+                          
+                            Container(
+                              height: 250.0,
+                              child: ListView.builder(
+                                scrollDirection: Axis.vertical,
+                                itemCount: itemList.length,
+                                shrinkWrap: true,
+                                itemBuilder: (context, index) {
+                                return ItemTile(
+                                  item: itemList[index],
+                                  image: Container(),
+                                  menuList: menuList
+                                );
+                                },
+                              ),
+                            ),
+
+                          ],
+                        ),
+                      ),
+                    );
+                  }
                 );
               }else{
                 return Loading();
