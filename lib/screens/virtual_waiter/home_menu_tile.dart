@@ -1,5 +1,4 @@
-import 'package:hotel_management_system/models/kitchen/menu.dart';
-import 'package:hotel_management_system/models/kitchen/menuItem.dart';
+import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/category.dart';
 

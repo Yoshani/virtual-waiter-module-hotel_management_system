@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:hotel_management_system/models/kitchen/item.dart';
-import 'package:hotel_management_system/models/kitchen/menu.dart';
+import 'package:hotel_management_system/models/vWaiter/item.dart';
+import 'package:hotel_management_system/models/vWaiter/menu.dart';
 
 class VWaiterDatabase2 {
 
@@ -36,7 +36,7 @@ class VWaiterDatabase2 {
       return Menu(
         category: doc.data['category'] ?? '',
         menuItems: doc.data['menuItems']  ?? '',
-        imageName: doc.data['image'] ?? ''
+        image: doc.data['image'] ?? ''
       );      
     }).toList();
   }
@@ -49,11 +49,13 @@ class VWaiterDatabase2 {
 
   //get item stream
   Stream<List<Item>> getItemList(String category) {
-    return itemCollection.where('category', isEqualTo: category).snapshots().map(itemListFromSnapshot);
+    print(category);
+    return itemCollection.where('category', isEqualTo: category).where('available', isEqualTo: true).snapshots().map(itemListFromSnapshot);
   }
 
   List<Item> itemListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((snap){
+      print(snap.data['name']);
       return Item(
         itemId: snap.documentID,
         available: snap.data['available'] ?? '',

@@ -9,6 +9,7 @@ import 'package:hotel_management_system/screens/kitchen/test2.dart';
 import 'package:hotel_management_system/screens/kitchen/test3.dart';
 import 'package:hotel_management_system/screens/manager/manager.dart';
 import 'package:hotel_management_system/screens/order_manager/order_manager_home.dart';
+// import 'package:hotel_management_system/screens/virtual_waiter/main_screen.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/vwaiter_home.dart';
 import 'package:hotel_management_system/services/database.dart';
 import 'package:provider/provider.dart';

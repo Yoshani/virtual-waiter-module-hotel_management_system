@@ -70,6 +70,12 @@ flutter:
     - family: Consolas
       fonts:
         - asset: fonts/consolas.ttf
+    - family: Roboto
+      fonts:
+        - asset: fonts/RobotoSlab.ttf
+    - family: Charm
+      fonts:
+        - asset: fonts/charm-Bold.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
