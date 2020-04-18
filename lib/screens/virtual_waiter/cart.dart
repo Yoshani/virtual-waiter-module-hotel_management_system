@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
-import 'package:hotel_management_system/models/vWaiter/item.dart';
-import 'package:hotel_management_system/models/vWaiter/menu.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/home_menu_tile.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'bottom_nav_bar.dart';
 import 'cart_tile.dart';
-import 'myappbar.dart';
-
-// List<CartItem> cartItems = [];
 
 class Cart extends StatefulWidget {
 
@@ -29,16 +23,17 @@ class _CartState extends State<Cart> {
     super.initState();
   }
 
+  //calculate bill
   List<num> calculateCartTotal(){
     int total=0;
-    double serviceCharges=0;
+    int serviceCharges=0;
     int subtotal=0;
     Cart.cartItems.forEach((cartItem){
       total += (cartItem.item.price)*cartItem.quantity;   
     });
 
-    serviceCharges = total*(5/100);
-    subtotal = (total+serviceCharges).round();
+    serviceCharges = (total*(5/100)).round();
+    subtotal = total+serviceCharges;
     return [total, serviceCharges, subtotal];
   }
   
@@ -96,6 +91,8 @@ class _CartState extends State<Cart> {
               ),
             ),
             SizedBox(height: 30.0),
+
+            //display message if cart is empty
             Cart.cartItems.isEmpty ? 
               Column(
                 children: <Widget>[
@@ -140,6 +137,8 @@ class _CartState extends State<Cart> {
                 ),
                 ],
               )
+
+              //if cart has items display cart
               :Column(
                 children: <Widget>[
                   Container(
@@ -227,6 +226,7 @@ class _CartState extends State<Cart> {
                   ),
                  
                   SizedBox(height: 30.0),
+
                   //place order button
                   Container(
                     width: MediaQuery.of(context).size.width /2,

@@ -1,15 +1,10 @@
-import 'package:hotel_management_system/models/vWaiter/item.dart';
-import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/item.dart';
-import 'package:hotel_management_system/services/vwaiter_database2.dart';
-
 import 'cart.dart';
 
 class CartTile extends StatefulWidget {
   final CartItem cartItem;
-  final VoidCallback onCartChanged;
+  final VoidCallback onCartChanged; //set state of cart
 
   CartTile({
     @required this.cartItem,

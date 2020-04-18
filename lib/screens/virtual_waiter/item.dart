@@ -4,7 +4,6 @@ import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/home_menu_tile.dart';
 import 'package:hotel_management_system/services/auth.dart';
-
 import 'bottom_nav_bar.dart';
 import 'cart.dart';
 
@@ -248,14 +247,12 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         );
                       }
                       else{
-                      //   cartItems.add(CartItem(
-                      //   item: widget.item,
-                      //   quantity: quantity,
-                      // ));
-                        Cart.cartItems.add(CartItem(
-                        item: widget.item,
-                        quantity: quantity,
-                      ));
+                        setState((){
+                          Cart.cartItems.add(CartItem(
+                            item: widget.item,
+                            quantity: quantity,
+                          ));
+                        });
                       }
                     },
                   ),
