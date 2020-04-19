@@ -1,13 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
+import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/settings.dart';
 
 class VWaiterDatabase2 {
+
 
   //collection reference
   final CollectionReference menuCollection =Firestore.instance.collection('main-menu');
   final CollectionReference itemCollection =Firestore.instance.collection('items');
+  final CollectionReference tableCollection =Firestore.instance.collection('tables');
+  final CollectionReference orderCollection =Firestore.instance.collection('orders');
 
   // get menu list stream
   Stream<List<Menu>> get menu {
@@ -17,22 +23,6 @@ class VWaiterDatabase2 {
   //menu list from snapshot
   List<Menu> menuListFromSnapshot (QuerySnapshot snapshot) {
     return snapshot.documents.map((doc){
- 
-
-      
-      // List<MenuItem> menuItems = [];
-
-      // doc.data['menuItems'].forEach((menuItem){
-      //   print(menuItem['item'].documentID);
-      //   menuItems.add(
-      //     MenuItem(
-      //       type: menuItem['type'],
-      //       itemId: menuItem['item'].documentID
-      //     )
-          
-      //   );
-      // });
-
       return Menu(
         category: doc.data['category'] ?? '',
         menuItems: doc.data['menuItems']  ?? '',
@@ -41,10 +31,10 @@ class VWaiterDatabase2 {
     }).toList();
   }
 
-  Future getImageURL(String imageName) async{
-    final ref = FirebaseStorage.instance.ref().child(imageName);
-    return await ref.getDownloadURL();
-  }
+  // Future getImageURL(String imageName) async{
+  //   final ref = FirebaseStorage.instance.ref().child(imageName);
+  //   return await ref.getDownloadURL();
+  // }
 
 
   //get item stream
@@ -68,6 +58,58 @@ class VWaiterDatabase2 {
       );
     }).toList();
   }
+
+  // get table list stream
+  Stream<List<RestaurantTable>> get tables {
+    return tableCollection.snapshots().map(tableListFromSnapshot);
+  }
+
+  //table list from snapshot
+  List<RestaurantTable> tableListFromSnapshot (QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return RestaurantTable(
+        tableId: doc.documentID,
+        tableNo: doc.data['table_no'] ?? '',
+        seats: doc.data['no_of_seats']  ?? '',
+      );      
+    }).toList();
+  }
+
+  //place order
+  Future<void> placeOrder(List<CartItem> cartItems, int seat, int subtotal, int total) async{
+    await orderCollection.add({
+      'seat': seat,
+      'status': "placed",
+      'subtotal': subtotal,
+      'total': total,
+      'dateTime': DateTime.now(),
+      'table': tableCollection.document(Settings.table.tableId),
+      'orderItems': cartItems.map((cartItem) => toMap(cartItem)).toList()
+    });
+  }
+
+  Map<String, dynamic> toMap(CartItem cartItem) {
+    return {
+      'item': itemCollection.document(cartItem.item.itemId),
+      'qty' : cartItem.quantity
+    };
+  }
+
+
+
+  // Future<void> updateUserData(String sugars, String name, int strength) async {
+  //   return await brewCollection.document(uid).setData({
+  //     'sugars': sugars,
+  //     'name': name,
+  //     'strength': strength,
+  //   });
+  // }
+
+  // Future<List<RestaurantTable>> get restaurantTables async {
+  //   QuerySnapshot snapshot= await tableCollection.getDocuments();
+  //   return tableListFromSnapshot(snapshot);   
+  // }
+
 
 
   // Stream<List<Item>> asStream(Menu menu) => new Stream.fromFuture(itemListFromMenu(menu));

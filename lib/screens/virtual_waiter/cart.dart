@@ -3,6 +3,7 @@ import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'bottom_nav_bar.dart';
 import 'cart_tile.dart';
+import 'customer_seat.dart';
 
 class Cart extends StatefulWidget {
 
@@ -25,16 +26,16 @@ class _CartState extends State<Cart> {
 
   //calculate bill
   List<num> calculateCartTotal(){
-    int total=0;
-    int serviceCharges=0;
     int subtotal=0;
+    int serviceCharges=0;
+    int total=0;
     Cart.cartItems.forEach((cartItem){
-      total += (cartItem.item.price)*cartItem.quantity;   
+      subtotal += (cartItem.item.price)*cartItem.quantity;   
     });
 
-    serviceCharges = (total*(5/100)).round();
-    subtotal = total+serviceCharges;
-    return [total, serviceCharges, subtotal];
+    serviceCharges = (subtotal*(5/100)).round();
+    total = subtotal+serviceCharges;
+    return [subtotal, serviceCharges, total];
   }
   
   @override
@@ -42,6 +43,16 @@ class _CartState extends State<Cart> {
 
     void _onCartChanged() {
         setState(() {
+      });
+    }
+
+    void _showPrompt(int subtotal, int total) {
+      showModalBottomSheet(context: context, builder: (context) {
+        return Container(
+          height: 400,
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          child: PositionForm(subtotal: subtotal, total: total, onCartChanged: _onCartChanged),
+        );
       });
     }
 
@@ -164,7 +175,7 @@ class _CartState extends State<Cart> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            "Cart Total",
+                            "Sub Total",
                             style: TextStyle(
                               color: Colors.indigo[900],
                               fontWeight: FontWeight.w500,
@@ -182,7 +193,7 @@ class _CartState extends State<Cart> {
                           ),
                           SizedBox(height: 20.0),
                           Text(
-                            "Sub Total",
+                            "Order Total",
                             style: TextStyle(
                               color: Colors.red,
                               fontWeight: FontWeight.w500,
@@ -261,7 +272,7 @@ class _CartState extends State<Cart> {
                         ],
                       ),
 
-                      onPressed: (){},
+                      onPressed: (){_showPrompt(bill[0], bill[2]);},
                     ),
                   ),
                 ],

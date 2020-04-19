@@ -10,10 +10,22 @@ import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'settings.dart';
+
 class VwaiterHome extends StatelessWidget {
   final AuthService _auth = AuthService();
 
   Widget build(BuildContext context) {
+
+    void _showSettingsPanel() {
+      showModalBottomSheet(context: context, builder: (context) {
+        return Container(
+          height: 400,
+          padding: EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+          child: Settings(),
+        );
+      });
+    }
 
     return StreamProvider<List<Menu>>.value(
       value: VWaiterDatabase2().menu,
@@ -39,8 +51,15 @@ class VwaiterHome extends StatelessWidget {
               ],
               icon: Icon(
                     Icons.menu,
-                    color: Colors.black,
+                    color: Colors.white,
                   )
+            ),
+            GestureDetector(
+              child: Icon(
+                Icons.settings,
+                color: Colors.grey[500],
+                ),
+              onTap: () => _showSettingsPanel(),
             ),
           ]
         ),
