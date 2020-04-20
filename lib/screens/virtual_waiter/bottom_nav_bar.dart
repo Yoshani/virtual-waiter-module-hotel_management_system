@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'cart.dart';
+import 'order_status.dart';
 
 class BottomNavigation extends StatelessWidget {
   @override
@@ -96,7 +97,15 @@ class BottomNavigation extends StatelessWidget {
               color: Colors.white
             ),
             color:Colors.lightBlue[400],
-            onPressed: (){},
+            onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context){
+                    return OrderStatus();
+                  },
+                ),
+              );
+            },
           ),
 
           IconButton(

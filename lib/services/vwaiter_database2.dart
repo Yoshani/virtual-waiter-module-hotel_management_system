@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hotel_management_system/models/vWaiter/order.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
@@ -39,13 +40,11 @@ class VWaiterDatabase2 {
 
   //get item stream
   Stream<List<Item>> getItemList(String category) {
-    print(category);
     return itemCollection.where('category', isEqualTo: category).where('available', isEqualTo: true).snapshots().map(itemListFromSnapshot);
   }
 
   List<Item> itemListFromSnapshot(QuerySnapshot snapshot){
     return snapshot.documents.map((snap){
-      print(snap.data['name']);
       return Item(
         itemId: snap.documentID,
         available: snap.data['available'] ?? '',
@@ -93,6 +92,29 @@ class VWaiterDatabase2 {
       'item': itemCollection.document(cartItem.item.itemId),
       'qty' : cartItem.quantity
     };
+  }
+
+  //order status
+   Stream<List<Order>> getOrderList() {
+    DocumentReference tableRef = tableCollection.document(Settings.table.tableId);
+    return orderCollection.where('table', isEqualTo: tableRef).where('status', whereIn: ["placed", "confirmed","cooking","cooked","served"]).snapshots().map(orderListFromSnapshot);
+  }
+
+  List<Order> orderListFromSnapshot(QuerySnapshot snapshot){
+    return snapshot.documents.map((snap){
+      return Order(
+        orderId: snap.documentID,
+        status: snap.data['status'] ?? '',
+        seat: snap.data['seat'] ?? '',
+      );
+    }).toList();
+  } 
+
+  //finish order
+  Future<void> finishOrder(Order order) async{
+    return await orderCollection.document(order.orderId).updateData({
+      'status': "finished"
+    });
   }
 
 

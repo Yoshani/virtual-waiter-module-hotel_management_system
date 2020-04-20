@@ -25,7 +25,7 @@ class _PositionFormState extends State<PositionForm> {
 
   List<int> getSeats(){
     List<int> seats = [];
-    for(int i=0; i<Settings.table.seats; i++){
+    for(int i=1; i<(Settings.table.seats)+1; i++){
       seats.add(i);
     }
     return seats;
@@ -79,7 +79,7 @@ class _PositionFormState extends State<PositionForm> {
                 );
                 Cart.cartItems = [];
                 widget.onCartChanged();
-                Navigator.pop(context);
+                Navigator.popAndPushNamed(context, '/orderStatus');
               }
             }
           ),
