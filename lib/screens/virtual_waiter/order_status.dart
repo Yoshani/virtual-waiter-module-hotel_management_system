@@ -21,7 +21,7 @@ class _OrderStatusState extends State<OrderStatus> {
         }
         List<Order> orderList = snapshot.data;
         return Scaffold(
-           backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           appBar: AppBar(   
             automaticallyImplyLeading: false,
             leading: IconButton(

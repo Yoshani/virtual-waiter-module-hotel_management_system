@@ -123,15 +123,16 @@ class VwaiterHome extends StatelessWidget {
                           )
                         ),
                         child: Text(
-                                "    Today's Special   ",
-                                style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w900,
-                                fontSize: 20,
-                                ),
-                              )
+                          "    Today's Special   ",
+                          style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                          ),
+                        )
                         ),
                 ),
+                Image.asset('assets/vwaiter/cover.jpg'),
               ],
             )
           ),

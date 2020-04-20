@@ -15,6 +15,7 @@ class VWaiterDatabase2 {
   final CollectionReference itemCollection =Firestore.instance.collection('items');
   final CollectionReference tableCollection =Firestore.instance.collection('tables');
   final CollectionReference orderCollection =Firestore.instance.collection('orders');
+  final CollectionReference reviewCollection =Firestore.instance.collection('reviews');
 
   // get menu list stream
   Stream<List<Menu>> get menu {
@@ -114,6 +115,16 @@ class VWaiterDatabase2 {
   Future<void> finishOrder(Order order) async{
     return await orderCollection.document(order.orderId).updateData({
       'status': "finished"
+    });
+  }
+
+  //submit feedback
+  Future<void> submitFeedback(String name, String feedback, double rating) async{
+    await reviewCollection.add({     
+      'date': DateTime.now(),
+      'feedback': feedback,
+      'name': name,
+      'stars': rating,
     });
   }
 

@@ -14,7 +14,7 @@ class _OrderTileState extends State<OrderTile> {
   @override
   Widget build(BuildContext context) {
 
-    //get image of status
+    //get image as per status
     Container statusImage(){
       switch (widget.order.status) {
         case "placed":
@@ -79,6 +79,7 @@ class _OrderTileState extends State<OrderTile> {
 
                     onPressed: (){
                       VWaiterDatabase2().finishOrder(widget.order);
+                      Navigator.pushNamed(context, '/feedback');
                     },
                   ),
                 );        

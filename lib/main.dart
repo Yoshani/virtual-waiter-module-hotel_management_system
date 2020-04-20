@@ -1,6 +1,7 @@
 import 'package:hotel_management_system/models/user/user.dart';
 import 'package:hotel_management_system/screens/kitchen/kitchen.dart';
 import 'package:hotel_management_system/screens/kitchen/test.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/feedback.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/order_status.dart';
 import 'package:hotel_management_system/screens/wrapper.dart';
 import 'package:hotel_management_system/services/auth.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         home: Wrapper(),
         routes: {
           '/orderStatus': (context) => OrderStatus(),
+          '/feedback': (context) => CustomerFeedback(),
         },
       ),
     );

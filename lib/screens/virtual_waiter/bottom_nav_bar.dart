@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'cart.dart';
 import 'order_status.dart';
+import 'feedback.dart';
 
 class BottomNavigation extends StatelessWidget {
   @override
@@ -115,7 +116,15 @@ class BottomNavigation extends StatelessWidget {
               color: Colors.white
             ),
             color:Colors.lightBlue[400],
-            onPressed: (){},
+            onPressed: (){
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (BuildContext context){
+                    return CustomerFeedback();
+                  },
+                ),
+              );
+            },
           ),
 
           SizedBox(width:7),
