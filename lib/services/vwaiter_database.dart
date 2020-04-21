@@ -157,7 +157,97 @@
 // //      }
 // // }
 
+ // Future<void> updateUserData(String sugars, String name, int strength) async {
+  //   return await brewCollection.document(uid).setData({
+  //     'sugars': sugars,
+  //     'name': name,
+  //     'strength': strength,
+  //   });
+  // }
 
+  // Future<List<RestaurantTable>> get restaurantTables async {
+  //   QuerySnapshot snapshot= await tableCollection.getDocuments();
+  //   return tableListFromSnapshot(snapshot);   
+  // }
+
+
+
+  // Stream<List<Item>> asStream(Menu menu) => new Stream.fromFuture(itemListFromMenu(menu));
+
+  // //get items list
+  // Future<List<Item>> itemListFromMenu(Menu menu) async{
+  //   List<Item> items = [];
+
+  //   for (var menuItem in menu.menuItems) {
+  //     // DocumentReference itemRef = menuItem['item'];
+  //     print(menuItem['item'].documentID);
+  //     var document = menuItem['item'];
+  //     // var document = itemCollection.document(menuItem['item'].documentID);
+      
+  //     print(menu.category);
+  //     // print (itemRef);
+  //     // var type = menuItem['type'];
+
+  //     var snap = await document.get();
+
+  //     print(snap.data['name']);
+  //     final ref = FirebaseStorage.instance.ref().child(snap.data['image']);
+  //     var image = await ref.getDownloadURL();
+  //     if(snap.exists && snap.data['available']){
+  //       items.add(Item(
+  //       available: snap.data['available'] ?? '',
+  //       name: snap.data['name'] ?? '',
+  //       description: snap.data['description'] ?? '',
+  //       persons: snap.data['persons'] ?? '',
+  //       price: snap.data['price'] ?? '',
+  //       image: image ?? ''
+  //       ));
+  //     }else{
+  //       print("No data");
+  //     }
+  //   }
+
+  //   return items;
+  // }
+
+
+//   Future<Widget> _getImage(BuildContext context, String image) async {
+//   Image m;
+//   await FireStorageService.loadImage(context, image).then((downloadUrl) {
+//     m = Image.network(
+//       downloadUrl.toString(),
+//       fit: BoxFit.scaleDown,
+//     );
+//   });
+// return m;
+// }
+
+//---------------------------------------
+
+// Stream getItems(Menu menu) async*
+// {
+//   menu.menuItems.forEach((menuItem) async* {
+//      yield* itemCollection
+//       .document(menuItem['item'].documentID)
+//       .snapshots()
+//       .map(_getItem);
+//   });
+
+// }
+
+// Item _getItem(DocumentSnapshot snap){
+//   Item item;
+//   if(snap.data['available']){
+//   item = Item(
+//         available: snap.data['available'] ?? '',
+//         name: snap.data['name'] ?? '',
+//         description: snap.data['description'] ?? '',
+//         persons: snap.data['persons'] ?? '',
+//         price: snap.data['price'] ?? ''
+//         );
+//   }
+//   return item;
+// }
 
 
 // }

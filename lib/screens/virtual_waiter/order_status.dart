@@ -13,14 +13,17 @@ class OrderStatus extends StatefulWidget {
 class _OrderStatusState extends State<OrderStatus> {
   @override
   Widget build(BuildContext context) {
+
     return StreamBuilder<List<Order>>(
       stream: VWaiterDatabase2().getOrderList(),
       builder: (context, snapshot) {
         if(!snapshot.hasData){
           return Loading();
         }
+        //list of orders placed from table
         List<Order> orderList = snapshot.data;
         return Scaffold(
+          resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
           appBar: AppBar(   
             automaticallyImplyLeading: false,
@@ -107,6 +110,7 @@ class _OrderStatusState extends State<OrderStatus> {
                 ),
                 ],
               )
+              //display order status if available
                 :Column(
                   children: <Widget>[
                     Center(

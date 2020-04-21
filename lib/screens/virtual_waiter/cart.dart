@@ -7,6 +7,7 @@ import 'customer_seat.dart';
 
 class Cart extends StatefulWidget {
 
+  //cart items list
   static List<CartItem> cartItems = [];
 
   Cart();
@@ -46,6 +47,7 @@ class _CartState extends State<Cart> {
       });
     }
 
+    //prompt to get seat number
     void _showPrompt(int subtotal, int total) {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
@@ -61,6 +63,7 @@ class _CartState extends State<Cart> {
   }
 
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Colors.white,
       appBar: AppBar(   
         automaticallyImplyLeading: false,

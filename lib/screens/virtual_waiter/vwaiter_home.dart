@@ -3,13 +3,8 @@ import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'bottom_nav_bar.dart';
-import 'cart.dart';
 import 'menu_list.dart';
-import 'package:hotel_management_system/services/vwaiter_database.dart';
 import 'package:provider/provider.dart';
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 import 'settings.dart';
 
 class VwaiterHome extends StatelessWidget {
@@ -95,21 +90,21 @@ class VwaiterHome extends StatelessWidget {
               ),
               MenuList(isHome: true), //render menu categories
               SizedBox(height: 30),
-              Container(
-                padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                decoration: BoxDecoration(
-                  color: Colors.lightBlue[100],
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-                child: 
-                  Text(
-                    "Search your food",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w900,
-                      fontSize: 20,
-                    ),
-                  )
-              ),
+              // Container(
+              //   padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+              //   decoration: BoxDecoration(
+              //     color: Colors.lightBlue[100],
+              //     borderRadius: BorderRadius.all(Radius.circular(20))),
+              //   child: 
+              //     Text(
+              //       "Order your food",
+              //       style: TextStyle(
+              //         color: Colors.white,
+              //         fontWeight: FontWeight.w900,
+              //         fontSize: 20,
+              //       ),
+              //     )
+              // ),
               SizedBox(height: 30),
               Align(
                 alignment: Alignment.centerLeft,

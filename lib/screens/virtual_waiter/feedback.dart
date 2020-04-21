@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/star_rating.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
-import 'package:hotel_management_system/shades/constants.dart';
 import 'package:flutter/services.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart'; 
-
 import 'bottom_nav_bar.dart';
 
 class CustomerFeedback extends StatefulWidget {
@@ -33,7 +30,10 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
             Icons.keyboard_backspace,
             color: Colors.black,
           ),
-            onPressed: () => Navigator.pop(context)
+            onPressed: () {
+              SystemChrome.setEnabledSystemUIOverlays ([]);
+              Navigator.pop(context);
+            }
         ),
         centerTitle: true,
         backgroundColor: Colors.white,

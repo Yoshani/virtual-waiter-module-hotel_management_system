@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
-import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/shades/constants.dart';
-import 'bottom_nav_bar.dart';
 import 'cart.dart';
-import 'cart_tile.dart';
 import 'settings.dart';
 
 class PositionForm extends StatefulWidget {
@@ -23,6 +19,7 @@ class _PositionFormState extends State<PositionForm> {
   int _seat;
   final _formKey = GlobalKey<FormState>();
 
+ //generate number of seats as per table
   List<int> getSeats(){
     List<int> seats = [];
     for(int i=1; i<(Settings.table.seats)+1; i++){

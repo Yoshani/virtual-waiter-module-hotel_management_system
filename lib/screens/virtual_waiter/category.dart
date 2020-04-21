@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/home_menu_tile.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/vwaiter_home.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 import 'bottom_nav_bar.dart';
-import 'cart.dart';
 import 'item_tile.dart';
 
 
@@ -25,7 +23,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
   Menu menu;
   var image;
-  // List<MenuItem> menuItems;
   List<String> catItemsIdList = [];
   List<Item> categoryItemList = [];
   List<Item> itemList2;
@@ -50,17 +47,22 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   
   @override
   Widget build(BuildContext context) {
+
+    //stream of menu items
     return StreamBuilder<List<Menu>>(
       stream: VWaiterDatabase2().menu,
       builder: (context, snapshot) {
         if(snapshot.hasData){
           List<Menu> menuList = snapshot.data;
+
+          //stream of category items
           return StreamBuilder<List<Item>>(
             stream: VWaiterDatabase2().getItemList(menu.category),
             builder: (context, snapshot) {
               if(snapshot.hasData ){
                 List<Item> itemList = snapshot.data;             
                 return Scaffold(
+                  resizeToAvoidBottomPadding: false,
                   appBar: AppBar(   
                     automaticallyImplyLeading: false,
                     leading: IconButton(
@@ -69,9 +71,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         color: Colors.black,
                       ),
                         onPressed: () => Navigator.popUntil(
-                                    context,
-                                    ModalRoute.withName('/'),
-                                  ),
+                          context,
+                          ModalRoute.withName('/'),
+                        ),
                     ),
                     centerTitle: true,
                     backgroundColor: Colors.white,
