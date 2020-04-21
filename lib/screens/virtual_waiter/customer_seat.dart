@@ -47,6 +47,7 @@ class _PositionFormState extends State<PositionForm> {
           SizedBox(height: 20.0),
           DropdownButtonFormField(
             value: _seat ?? null,
+            hint: Text("Select your seat from the drop down menu"),
             decoration: textInputDecoration,
             items: seats.map((seat) {
               return DropdownMenuItem(

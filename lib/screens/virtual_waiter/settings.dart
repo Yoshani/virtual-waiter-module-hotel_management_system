@@ -39,7 +39,7 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 50.0),
               DropdownButtonFormField(
-                hint: new Text("Select a table"),
+                hint: Text("Select a table"),
                 decoration: textInputDecoration,  //from constants.dart
                 items: tables.map((table) {
                   return DropdownMenuItem(
