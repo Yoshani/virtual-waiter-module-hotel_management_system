@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
+import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'bottom_nav_bar.dart';
 import 'cart_tile.dart';
@@ -31,7 +32,11 @@ class _CartState extends State<Cart> {
     int serviceCharges=0;
     int total=0;
     Cart.cartItems.forEach((cartItem){
-      subtotal += (cartItem.item.price)*cartItem.quantity;   
+      if(cartItem.item is Item){
+        subtotal += (cartItem.item.price)*cartItem.quantity; 
+      }else{
+        subtotal+=(cartItem.offer.price)*cartItem.quantity;
+      }  
     });
 
     serviceCharges = (subtotal*(5/100)).round();

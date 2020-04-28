@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/models/vWaiter/order.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
@@ -11,11 +12,12 @@ class VWaiterDatabase2 {
 
 
   //collection reference
-  final CollectionReference menuCollection =Firestore.instance.collection('main-menu');
-  final CollectionReference itemCollection =Firestore.instance.collection('items');
-  final CollectionReference tableCollection =Firestore.instance.collection('tables');
-  final CollectionReference orderCollection =Firestore.instance.collection('orders');
-  final CollectionReference reviewCollection =Firestore.instance.collection('reviews');
+  final CollectionReference menuCollection = Firestore.instance.collection('main-menu');
+  final CollectionReference itemCollection = Firestore.instance.collection('items');
+  final CollectionReference tableCollection = Firestore.instance.collection('tables');
+  final CollectionReference orderCollection = Firestore.instance.collection('orders');
+  final CollectionReference reviewCollection = Firestore.instance.collection('reviews');
+  final CollectionReference offerCollection = Firestore.instance.collection('special-offers');
 
   // get menu list stream
   Stream<List<Menu>> get menu {
@@ -32,12 +34,6 @@ class VWaiterDatabase2 {
       );      
     }).toList();
   }
-
-  // Future getImageURL(String imageName) async{
-  //   final ref = FirebaseStorage.instance.ref().child(imageName);
-  //   return await ref.getDownloadURL();
-  // }
-
 
   //get item stream
   Stream<List<Item>> getItemList(String category) {
@@ -81,6 +77,7 @@ class VWaiterDatabase2 {
 
   //place order
   Future<void> placeOrder(List<CartItem> cartItems, int seat, int subtotal, int total) async{
+
     await orderCollection.add({
       'seat': seat,
       'status': "placed",
@@ -88,15 +85,30 @@ class VWaiterDatabase2 {
       'total': total,
       'dateTime': DateTime.now(),
       'table': tableCollection.document(Settings.table.tableId),
-      'orderItems': cartItems.map((cartItem) => toMap(cartItem)).toList()
+      'orderItems': toMap(cartItems)
     });
   }
 
-  Map<String, dynamic> toMap(CartItem cartItem) {
-    return {
-      'item': itemCollection.document(cartItem.item.itemId),
-      'qty' : cartItem.quantity
-    };
+  List toMap(List<CartItem> cartItems) {
+    List orderItems = [];
+    for(CartItem cartItem in cartItems){
+      if(cartItem.item is Item){
+        orderItems.add ({
+          'item': itemCollection.document(cartItem.item.itemId),
+          'qty' : cartItem.quantity,
+          'offer': null
+        });
+      }else{
+        for(var offerItem in cartItem.offer.items){
+          orderItems.add({
+            'item': offerItem['item'],
+            'qty' : offerItem['quantity']*cartItem.quantity,
+            'offer': cartItem.offer.name
+          });
+        }
+      }
+    }
+    return orderItems;
   }
 
 
@@ -137,6 +149,48 @@ class VWaiterDatabase2 {
       'stars': rating,
     });
   }
+
+  //get offers
+  Stream<List<Offer>> get offers {
+    return offerCollection.snapshots().map(offerListFromSnapshot);
+  }
+
+  //offer list from snapshot
+  List<Offer> offerListFromSnapshot (QuerySnapshot snapshot) {
+    return snapshot.documents.map((doc){
+      return Offer(
+        items: doc.data['items'] ?? '',
+        name: doc.data['name']  ?? '',
+        price: doc.data['price'] ?? '',
+        validTill: DateTime.parse(doc.data['validTill'].toDate().toString()) ?? ''
+      );      
+    }).toList();
+  }
+
+  //get offer items
+  Future<List<CartItem>> getOfferItems(List items) async{
+    List<CartItem> offerItems=[];
+    for (var item in items){
+      var snap = await item['item'].get();
+      Item offerItem=Item(
+        itemId: snap.documentID,
+        available: snap.data['available'] ?? '',
+        name: snap.data['name'] ?? '',
+        description: snap.data['description'] ?? '',
+        persons: snap.data['persons'] ?? '',
+        price: snap.data['price'] ?? '',
+        category: snap.data['category'] ?? '',
+        image: snap.data['image'] ?? ''
+      );
+      offerItems.add(
+        CartItem(
+          item: offerItem,
+          quantity: item['quantity']
+        )
+      );
+    }
+    return offerItems;
+  }  
 
 
 

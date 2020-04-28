@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
+import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'cart.dart';
 
 class CartTile extends StatefulWidget {
@@ -21,6 +22,14 @@ class _CartTileState extends State<CartTile> {
 
   @override
   Widget build(BuildContext context) {
+
+    bool checkItemType(CartItem cartItem){
+      if(cartItem.item is Item){
+        return true;
+      }
+      return false;
+    }
+
     return Padding(
       padding: const EdgeInsets.fromLTRB(5.0,0,5.0,5.0),
       child: Container(
@@ -89,14 +98,18 @@ class _CartTileState extends State<CartTile> {
 
             Container(
               // width:200,
-              child: Image.network(widget.cartItem.item.image)
+              child: checkItemType(widget.cartItem)?
+              Image.network(widget.cartItem.item.image)
+              :Image.asset('assets/vwaiter/offer.jpg')
             ),
 
             Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Text(
-                  widget.cartItem.item.name,
+                  checkItemType(widget.cartItem)?
+                  widget.cartItem.item.name
+                  :widget.cartItem.offer.name,
                   style: TextStyle(
                     color: Colors.indigo[900],
                     fontWeight: FontWeight.w500,
@@ -104,7 +117,9 @@ class _CartTileState extends State<CartTile> {
                   ),
                 ),
                 Text(
-                  "Rs. ${widget.cartItem.item.price.toString()}",                 
+                  checkItemType(widget.cartItem)?
+                  "Rs. ${widget.cartItem.item.price.toString()}"
+                  : "Rs. ${widget.cartItem.offer.price.toString()}",                
                   style: TextStyle(
                     color: Colors.indigo[900],
                     fontWeight: FontWeight.w500,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/special_offers.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'bottom_nav_bar.dart';
@@ -117,15 +118,25 @@ class VwaiterHome extends StatelessWidget {
                           bottomRight: Radius.circular(50)
                           )
                         ),
-                        child: Text(
-                          "    Today's Special   ",
-                          style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          fontSize: 20,
+                        child: InkWell(
+                          onTap:() {Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (BuildContext context){
+                                return Offers(
+                                );
+                              },
+                            ),
+                          );},
+                          child: Text(
+                            "    Today's Special   ",
+                            style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w900,
+                            fontSize: 20,
+                            ),
                           ),
                         )
-                        ),
+                      ),
                 ),
                 Image.asset('assets/vwaiter/cover.jpg'),
               ],
