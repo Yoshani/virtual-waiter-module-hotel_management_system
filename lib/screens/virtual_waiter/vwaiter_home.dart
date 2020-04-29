@@ -1,7 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
-import 'package:hotel_management_system/services/auth.dart';
+import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/shared_preferences.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/utilities/carousal.dart';
 import 'blinking_button.dart';
@@ -10,8 +11,35 @@ import 'menu_list.dart';
 import 'package:provider/provider.dart';
 import 'settings.dart';
 
-class VwaiterHome extends StatelessWidget {
-  final AuthService _auth = AuthService();
+class VwaiterHome extends StatefulWidget {
+
+  @override
+  _VwaiterHomeState createState() => _VwaiterHomeState();
+}
+
+class _VwaiterHomeState extends State<VwaiterHome> {
+  SharedPref sharedPref = SharedPref();
+
+  //load table data from shared preferences
+  loadSharedPrefs() async {
+    try {
+      RestaurantTable table = RestaurantTable.fromJson(await sharedPref.read("table"));
+      setState(() {
+        Settings.table=table;
+      });
+    } catch (Excepetion) {
+      Settings.table=RestaurantTable(tableNo: 0, seats: 0);
+    }
+  }
+
+  @override
+  initState() {
+    loadSharedPrefs().then((value){
+      print('Table loaded');
+    });
+    
+    super.initState();
+  }
 
   Widget build(BuildContext context) {
 
@@ -28,32 +56,11 @@ class VwaiterHome extends StatelessWidget {
     return StreamProvider<List<Menu>>.value(
       value: VWaiterDatabase2().menu,
       child: Scaffold(
+        resizeToAvoidBottomPadding: false,
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 1.5,
-          leading: Builder(
-            builder: (BuildContext context) {
-              return PopupMenuButton<Widget>(
-                itemBuilder: (context) => [
-                  PopupMenuItem(
-                    child: FlatButton.icon(
-                      icon: Icon(Icons.person),
-                      label: Text('Logout'),
-                      onPressed: () async {
-                        Navigator.pop(context);
-                        await _auth.signOut();
-                      },
-                    ),
-                  ),
-                ],
-                icon: Icon(
-                      Icons.menu,
-                      color: Colors.white,
-                )
-              );
-            },
-          ),
           actions: <Widget>[
 
             GestureDetector(

@@ -18,23 +18,6 @@ class _SettingsState extends State<Settings> {
 
   SharedPref sharedPref = SharedPref();
   final _formKey = GlobalKey<FormState>();
-
-  loadSharedPrefs() async {
-    try {
-      RestaurantTable table = RestaurantTable.fromJson(await sharedPref.read("table"));
-      setState(() {
-        Settings.table=table;
-      });
-    } catch (Excepetion) {
-      Settings.table=RestaurantTable(tableNo: 0, seats: 0);
-    }
-  }
-
-  @override
-  initState() {
-    loadSharedPrefs();
-    super.initState();
-  }
  
   @override
   Widget build(BuildContext context) {  

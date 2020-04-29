@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
-import 'package:hotel_management_system/services/auth.dart';
 import 'bottom_nav_bar.dart';
 import 'cart_tile.dart';
 import 'customer_seat.dart';
@@ -18,7 +17,6 @@ class Cart extends StatefulWidget {
 
 class _CartState extends State<Cart> {
 
-  final AuthService auth = AuthService();
 
   List<num> bill = [];
   @override
