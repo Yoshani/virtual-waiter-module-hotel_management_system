@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
-import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:flutter/material.dart';
 
 class OfferTileItem extends StatefulWidget {
@@ -21,7 +21,7 @@ class _OfferTileItemState extends State<OfferTileItem> {
       leading: CircleAvatar(
             radius: 40.0,
             backgroundColor: Colors.white,
-            backgroundImage: NetworkImage(widget.offerItem.item.image),
+            backgroundImage: CachedNetworkImageProvider(widget.offerItem.item.image), 
             ),
       title:Text(
         '${widget.offerItem.quantity}  ${widget.offerItem.item.name}',

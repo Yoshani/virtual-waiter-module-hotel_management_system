@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
@@ -104,12 +105,18 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         Container(
                           height: MediaQuery.of(context).size.height / 2.5,
                           width: MediaQuery.of(context).size.width,
-                          child: FadeInImage.assetNetwork(
-                            placeholder: 'assets/loader.gif',
-                            image: menu.image,
+                          child:CachedNetworkImage(
+                            imageUrl: menu.image,
+                            placeholder:(context, url) => Image.asset('assets/loader.gif'),
+                            errorWidget: (context, url, error) => Icon(Icons.error),
                             fit: BoxFit.fill,
-                            // height: 400,
                           ),
+                          // child: FadeInImage.assetNetwork(
+                          //   placeholder: 'assets/loader.gif',
+                          //   image: menu.image,
+                          //   fit: BoxFit.fill,
+                          //   // height: 400,
+                          // ),
                         ),
                         
                         SizedBox(height: 10.0),

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
@@ -97,9 +98,13 @@ class _CartTileState extends State<CartTile> {
             ),
 
             Container(
-              // width:200,
               child: checkItemType(widget.cartItem)?
-              Image.network(widget.cartItem.item.image)
+              CachedNetworkImage(
+                imageUrl: widget.cartItem.item.image,
+                placeholder:(context, url) => Image.asset('assets/loader.gif'),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              )     
+
               :Image.asset('assets/vwaiter/offer.jpg')
             ),
 

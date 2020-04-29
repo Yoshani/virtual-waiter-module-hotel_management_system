@@ -38,6 +38,7 @@ dependencies:
   smooth_star_rating: 1.0.3
   intl: ^0.16.1
   shared_preferences: ^0.5.7
+  cached_network_image: ^2.1.0+1
 
 dev_dependencies:
   flutter_test:

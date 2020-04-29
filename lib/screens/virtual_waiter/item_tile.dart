@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +41,7 @@ class _ItemTileState extends State<ItemTile> {
             leading: CircleAvatar(
             radius: 40.0,
             backgroundColor: Colors.white,
-            backgroundImage: NetworkImage(widget.item.image),
+            backgroundImage: CachedNetworkImageProvider(widget.item.image),
             ),
             title:Text(
               widget.item.name,
