@@ -1,5 +1,4 @@
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
-import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
