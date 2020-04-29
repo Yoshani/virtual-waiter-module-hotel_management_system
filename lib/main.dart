@@ -1,6 +1,7 @@
 import 'package:hotel_management_system/models/user/user.dart';
 import 'package:hotel_management_system/screens/kitchen/kitchen.dart';
 import 'package:hotel_management_system/screens/kitchen/test.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/cart.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/feedback.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/order_status.dart';
 import 'package:hotel_management_system/screens/wrapper.dart';
@@ -21,15 +22,20 @@ class MyApp extends StatelessWidget {
     ]);
     return StreamProvider<User>.value(
       value: AuthService().user,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Wrapper(),
-        routes: {
-          '/orderStatus': (context) => OrderStatus(),
-          '/feedback': (context) => CustomerFeedback(),
+      child: GestureDetector(
+        onTap: () {
+          SystemChrome.setEnabledSystemUIOverlays ([]);
         },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Wrapper(),
+          routes: {
+            '/cart': (context) => Cart(),
+            '/orderStatus': (context) => OrderStatus(),
+            '/feedback': (context) => CustomerFeedback(),
+          },
+        ),
       ),
-    );
-   
+    );   
   }
 }

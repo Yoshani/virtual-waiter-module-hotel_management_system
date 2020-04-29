@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/models/vWaiter/order.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
@@ -59,7 +58,7 @@ class VWaiterDatabase2 {
 
   // get table list stream
   Stream<List<RestaurantTable>> get tables {
-    return tableCollection.snapshots().map(tableListFromSnapshot);
+    return tableCollection.orderBy('table_no').snapshots().map(tableListFromSnapshot);
   }
 
   //table list from snapshot
@@ -152,7 +151,7 @@ class VWaiterDatabase2 {
 
   //get offers
   Stream<List<Offer>> get offers {
-    return offerCollection.snapshots().map(offerListFromSnapshot);
+    return offerCollection.where('validTill', isGreaterThanOrEqualTo: DateTime.now()).snapshots().map(offerListFromSnapshot);
   }
 
   //offer list from snapshot

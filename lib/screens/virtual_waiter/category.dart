@@ -28,17 +28,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   List<Item> itemList2;
   final AuthService auth = AuthService();
 
-// void addItemId() {
-//   menu.menuItems.forEach((menuItem) {
-//     catItemsIdList.add(menuItem.itemId);
-//   });
-// }
-// Future getImage() async {
-//   var result = await VWaiterDatabase2().getImageURL(menu.imageName); 
-//     image = result;
-//   return image;
-// }
-
   @override
   initState() {
     menu = widget.menu;

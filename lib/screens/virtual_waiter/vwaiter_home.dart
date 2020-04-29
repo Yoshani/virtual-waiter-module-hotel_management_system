@@ -1,8 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/special_offers.dart';
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
+import 'package:hotel_management_system/utilities/carousal.dart';
+import 'blinking_button.dart';
 import 'bottom_nav_bar.dart';
 import 'menu_list.dart';
 import 'package:provider/provider.dart';
@@ -28,28 +30,32 @@ class VwaiterHome extends StatelessWidget {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          centerTitle: true,
           backgroundColor: Colors.white,
           elevation: 1.5,
-          actions: <Widget>[
-            PopupMenuButton<Widget>(
-              itemBuilder: (context) => [
-                PopupMenuItem(
-                  child: FlatButton.icon(
-                    icon: Icon(Icons.person),
-                    label: Text('Logout'),
-                    onPressed: () async {
-                      Navigator.pop(context);
-                      await _auth.signOut();
-                    },
+          leading: Builder(
+            builder: (BuildContext context) {
+              return PopupMenuButton<Widget>(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: FlatButton.icon(
+                      icon: Icon(Icons.person),
+                      label: Text('Logout'),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await _auth.signOut();
+                      },
+                    ),
                   ),
-                ),
-              ],
-              icon: Icon(
-                    Icons.menu,
-                    color: Colors.white,
-                  )
-            ),
+                ],
+                icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                )
+              );
+            },
+          ),
+          actions: <Widget>[
+
             GestureDetector(
               child: Icon(
                 Icons.settings,
@@ -90,70 +96,43 @@ class VwaiterHome extends StatelessWidget {
                 ),
               ),
               MenuList(isHome: true), //render menu categories
-              SizedBox(height: 30),
-              // Container(
-              //   padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-              //   decoration: BoxDecoration(
-              //     color: Colors.lightBlue[100],
-              //     borderRadius: BorderRadius.all(Radius.circular(20))),
-              //   child: 
-              //     Text(
-              //       "Order your food",
-              //       style: TextStyle(
-              //         color: Colors.white,
-              //         fontWeight: FontWeight.w900,
-              //         fontSize: 20,
-              //       ),
-              //     )
-              // ),
-              SizedBox(height: 30),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Container(
-                        padding: const EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-                        decoration: BoxDecoration(
-                          color: Colors.blue[200],
-                          borderRadius: BorderRadius.only(
-                          topRight: Radius.circular(50),
-                          bottomRight: Radius.circular(50)
-                          )
-                        ),
-                        child: InkWell(
-                          onTap:() {Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (BuildContext context){
-                                return Offers(
-                                );
-                              },
-                            ),
-                          );},
-                          child: Text(
-                            "    Today's Special   ",
-                            style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
-                            fontSize: 20,
-                            ),
-                          ),
-                        )
-                      ),
-                ),
-                Image.asset('assets/vwaiter/cover.jpg'),
-              ],
-            )
+              SizedBox(height: 60),
+              MyBlinkingButton(),
+              SizedBox(height: 30),               
+              CarouselSlider(
+                height: MediaQuery.of(context).size.height/2.4,
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 4),
+                autoPlayCurve: Curves.decelerate,
+                viewportFraction: 1.0,
+                enableInfiniteScroll: true,
+                items: carousal.map((image) {
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: EdgeInsets.symmetric(horizontal: 5.0),
+                        child: image,
+                      );
+                    },
+                  );
+                }).toList(),
+              )
+            ],
+          )
+        ),
+        bottomNavigationBar: BottomNavigation(),
+        floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Colors.cyan[400],
+          elevation: 8.0,
+          child: ConstrainedBox(
+            constraints: BoxConstraints.expand(),
+            child: Image.asset('assets/logo.png'),
           ),
-          bottomNavigationBar: BottomNavigation(),
-          floatingActionButtonAnimator: FloatingActionButtonAnimator.scaling,
-          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.cyan[400],
-            elevation: 8.0,
-            child: ConstrainedBox(
-              constraints: BoxConstraints.expand(),
-              child: Image.asset('assets/logo.png'),
-            ),
-            onPressed: (){},
-          ),
+          onPressed: (){},
+        ),
       ),
     );
   }

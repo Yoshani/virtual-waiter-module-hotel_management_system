@@ -160,7 +160,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       ),
                   ),
                   
-                  SizedBox(height: 50.0),
+                  SizedBox(height: 40.0),
 
                   RaisedButton(
                     color: Colors.cyan[400],
@@ -168,8 +168,9 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                       'Submit',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20
-                        ),
+                        fontSize: 20,
+                        fontWeight: FontWeight.w900,
+                      ),
                     ),
                     onPressed: () async {
                       SystemChrome.setEnabledSystemUIOverlays ([]);
@@ -177,6 +178,22 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                         VWaiterDatabase2().submitFeedback(_customerName, _feedback, rating);
                         Navigator.popUntil(context, ModalRoute.withName('/'));
                       }
+                    }
+                  ),
+                  SizedBox(height: 20,),
+                  RaisedButton(
+                    color: Colors.grey[100],
+                    child: Text(
+                      'Skip',
+                      style: TextStyle(
+                        color: Colors.indigo,
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        ),
+                    ),
+                    onPressed: (){
+                      SystemChrome.setEnabledSystemUIOverlays ([]);
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
                     }
                   ),
                 ],

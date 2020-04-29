@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'cart.dart';
-import 'order_status.dart';
-import 'feedback.dart';
 
 class BottomNavigation extends StatelessWidget {
+
+  final cart = "/cart";
+  final orderStatus = "/orderStatus";
+  final feedback = "/feedback";
+
   @override
   Widget build(BuildContext context) {
+
+    var route = ModalRoute.of(context);
+
     return BottomAppBar(
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -19,7 +25,11 @@ class BottomNavigation extends StatelessWidget {
               color: Colors.white
             ),
             color: Colors.black,
-            onPressed: () => Navigator.popUntil(context, ModalRoute.withName('/'),),
+            onPressed: () {
+              if(route.settings.name != '/'){
+                Navigator.popUntil(context, ModalRoute.withName('/'),);
+              }
+            },
           ),
 
           Cart.cartItems.isNotEmpty ? 
@@ -33,13 +43,9 @@ class BottomNavigation extends StatelessWidget {
                   ),
                   color:Colors.lightBlue[400],
                   onPressed: (){
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (BuildContext context){
-                          return Cart();
-                        },
-                      ),
-                    );
+                    if(route.settings.name != cart){
+                      Navigator.pushNamed(context, cart);
+                    }
                   },
                 ),
                 Positioned(
@@ -74,13 +80,9 @@ class BottomNavigation extends StatelessWidget {
             ),
             color:Colors.lightBlue[400],
             onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return Cart();
-                  },
-                ),
-              );
+              if(route.settings.name != cart){
+                      Navigator.pushNamed(context, cart);
+              }
             },
           ),         
           
@@ -99,13 +101,9 @@ class BottomNavigation extends StatelessWidget {
             ),
             color:Colors.lightBlue[400],
             onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return OrderStatus();
-                  },
-                ),
-              );
+              if(route.settings.name != orderStatus){
+                Navigator.pushNamed(context, orderStatus);
+              }
             },
           ),
 
@@ -117,13 +115,9 @@ class BottomNavigation extends StatelessWidget {
             ),
             color:Colors.lightBlue[400],
             onPressed: (){
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (BuildContext context){
-                    return CustomerFeedback();
-                  },
-                ),
-              );
+              if(route.settings.name != feedback){
+                Navigator.pushNamed(context, feedback);
+              }
             },
           ),
 

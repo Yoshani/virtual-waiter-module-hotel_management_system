@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/shared_preferences.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
 import 'package:hotel_management_system/shades/constants.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 
+
 class Settings extends StatefulWidget {
 
-  static RestaurantTable table = RestaurantTable(tableNo: 0, seats: 0);
+  static RestaurantTable table;
 
   @override
   _SettingsState createState() => _SettingsState();
@@ -14,10 +16,28 @@ class Settings extends StatefulWidget {
 
 class _SettingsState extends State<Settings> {
 
+  SharedPref sharedPref = SharedPref();
   final _formKey = GlobalKey<FormState>();
+
+  loadSharedPrefs() async {
+    try {
+      RestaurantTable table = RestaurantTable.fromJson(await sharedPref.read("table"));
+      setState(() {
+        Settings.table=table;
+      });
+    } catch (Excepetion) {
+      Settings.table=RestaurantTable(tableNo: 0, seats: 0);
+    }
+  }
+
+  @override
+  initState() {
+    loadSharedPrefs();
+    super.initState();
+  }
  
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {  
     return StreamBuilder<List<RestaurantTable>>(
       stream: VWaiterDatabase2().tables,
       builder: (context, snapshot) {
@@ -68,7 +88,10 @@ class _SettingsState extends State<Settings> {
                   'Save',
                   style: TextStyle(color: Colors.white),
                 ),
-                onPressed: () async => Navigator.pop(context)
+                onPressed: () async {
+                  sharedPref.save("table", Settings.table);
+                  Navigator.pop(context);
+                }
               ),
             ],
           ),
@@ -77,3 +100,4 @@ class _SettingsState extends State<Settings> {
     );
   }
 }
+
