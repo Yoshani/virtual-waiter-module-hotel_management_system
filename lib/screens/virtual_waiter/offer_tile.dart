@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:intl/intl.dart';
-
 import 'cart.dart';
 import 'offer_tile_item.dart';
 

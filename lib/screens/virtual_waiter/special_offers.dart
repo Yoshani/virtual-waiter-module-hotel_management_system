@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotel_management_system/models/vWaiter/offer.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/no_offers.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 import 'bottom_nav_bar.dart';
@@ -12,6 +13,7 @@ class Offers extends StatefulWidget {
 }
 
 class _OffersState extends State<Offers> {
+
   @override
   Widget build(BuildContext context) {
 
@@ -26,6 +28,7 @@ class _OffersState extends State<Offers> {
           return Loading();
         }
         List<Offer> offerList=snapshot.data;
+
         return Scaffold(
           resizeToAvoidBottomPadding: false,
           backgroundColor: Colors.white,
@@ -46,7 +49,10 @@ class _OffersState extends State<Offers> {
             elevation: 1.5,
           ),
           body:
-          Column(
+          offerList.isEmpty?
+          NoOffers()
+          :Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               SizedBox(height: 50.0),
               Align(
@@ -70,71 +76,20 @@ class _OffersState extends State<Offers> {
                   )
                 ),
               ),
-
-              offerList.isEmpty?
-                Column(
-                  children: <Widget>[
-                    SizedBox(height: 20.0),
-                    Center(
-                      child: 
-                      Text(
-                        "Sorry!",
-                        style: TextStyle(
-                        color: Colors.indigo[900],
-                        fontWeight: FontWeight.w900,
-                        fontSize: 30,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 3.0),
-                    Center(
-                      child: Text(
-                        "We are out of offers today!",
-                        style: TextStyle(
-                        color: Colors.indigo[900],
-                        fontWeight: FontWeight.w500,
-                        fontSize: 25,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20.0),
-                    Center(
-                      child: Text(
-                        "Pick out your favorite meal from our menu",
-                        style: TextStyle(
-                        color: Colors.indigo[800],
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 30.0),
-                    Container(
-                      child: Image.asset(
-                        "assets/vwaiter/noOffers.jpg",
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ],
-                )
-              :Column(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[                
-                  SizedBox(height: 10),
-                  Expanded(
-                      child: ListView.builder(
-                      itemCount: offerList.length,
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemBuilder: (context, index) {
-                        return OfferTile(
-                          offer: offerList[index],
-                          offerPageState: setPageState,
-                        );
-                      },
-                    ),
-                  ),
-                ],
+ 
+              SizedBox(height: 10),
+              Expanded(
+                  child: ListView.builder(
+                  itemCount: offerList.length,
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return OfferTile(
+                      offer: offerList[index],
+                      offerPageState: setPageState,
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -149,7 +104,8 @@ class _OffersState extends State<Offers> {
               child: Image.asset('assets/logo.png'),
             ),
             onPressed: (){},
-          ),               
+          ), 
+
         );
       }
     );
