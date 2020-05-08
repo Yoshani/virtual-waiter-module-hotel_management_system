@@ -18,16 +18,23 @@ class ItemTile extends StatefulWidget {
 }
 
 class _ItemTileState extends State<ItemTile> {
-  String image;
 
   @override
   Widget build(BuildContext context) {
+
+    var image = CachedNetworkImage(
+      imageUrl: widget.item.image,
+      placeholder:(context, url) => Image.asset('assets/loader.gif'),
+      errorWidget: (context, url, error) => Icon(Icons.error),
+      fit: BoxFit.fill,
+    );
+
     return InkWell(
     onTap: (){
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (BuildContext context){
-            return ItemsScreen(item: widget.item, menuList: widget.menuList);
+            return ItemsScreen(item: widget.item, menuList: widget.menuList, image: image);
           },
         ),
       );

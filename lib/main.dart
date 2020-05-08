@@ -1,9 +1,12 @@
+import 'package:hotel_management_system/models/user.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/cart.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/feedback.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/order_status.dart';
-import 'package:hotel_management_system/screens/virtual_waiter/vwaiter_home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:hotel_management_system/screens/wrapper.dart';
+import 'package:hotel_management_system/services/auth.dart';
+import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
 
@@ -17,19 +20,23 @@ class MyApp extends StatelessWidget {
     DeviceOrientation.portraitDown,
     ]);
     
-    return GestureDetector(
-      onTap: () {
-        SystemChrome.setEnabledSystemUIOverlays ([]);
-      },
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: VwaiterHome(),
-        routes: {
-          '/cart': (context) => Cart(),
-          '/orderStatus': (context) => OrderStatus(),
-          '/feedback': (context) => CustomerFeedback(),
+    return StreamProvider<User>.value(
+      value: AuthService().user,
+      child: GestureDetector(
+        onTap: () {
+          SystemChrome.setEnabledSystemUIOverlays ([]);
         },
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          home: Wrapper(),
+          routes: {
+            '/cart': (context) => Cart(),
+            '/orderStatus': (context) => OrderStatus(),
+            '/feedback': (context) => CustomerFeedback(),
+          },
+        ),
       ),
-    );   
+    );
+       
   }
 }

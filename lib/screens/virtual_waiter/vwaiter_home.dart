@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/shared_preferences.dart';
+import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/utilities/carousal.dart';
 import 'blinking_button.dart';
@@ -12,12 +13,12 @@ import 'package:provider/provider.dart';
 import 'settings.dart';
 
 class VwaiterHome extends StatefulWidget {
-
   @override
   _VwaiterHomeState createState() => _VwaiterHomeState();
 }
 
 class _VwaiterHomeState extends State<VwaiterHome> {
+  final AuthService _auth = AuthService();
   SharedPref sharedPref = SharedPref();
 
   //load table data from shared preferences
@@ -61,6 +62,28 @@ class _VwaiterHomeState extends State<VwaiterHome> {
         appBar: AppBar(
           backgroundColor: Colors.white,
           elevation: 1.5,
+          leading: Builder(
+            builder: (BuildContext context) {
+              return PopupMenuButton<Widget>(
+                itemBuilder: (context) => [
+                  PopupMenuItem(
+                    child: FlatButton.icon(
+                      icon: Icon(Icons.person),
+                      label: Text('Logout'),
+                      onPressed: () async {
+                        Navigator.pop(context);
+                        await _auth.signOut();
+                      },
+                    ),
+                  ),
+                ],
+                icon: Icon(
+                      Icons.menu,
+                      color: Colors.white,
+                )
+              );
+            },
+          ),
           actions: <Widget>[
 
             GestureDetector(

@@ -26,9 +26,11 @@ class _OfferTileState extends State<OfferTile> {
   @override
   Widget build(BuildContext context) {
 
+    //format the date
     String formatDate(DateTime date){
       return DateFormat.yMMMd().format(date);
     }
+
     return FutureBuilder<List<CartItem>>(
       future: VWaiterDatabase2().getOfferItems(widget.offer.items),
       builder: (context, snapshot) {

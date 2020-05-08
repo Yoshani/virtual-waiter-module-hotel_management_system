@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
@@ -10,8 +11,9 @@ import 'cart.dart';
 class ItemsScreen extends StatefulWidget {
   final Item item;
   final List<Menu> menuList;
+  final CachedNetworkImage image;
 
-  ItemsScreen({this.item, this.menuList});
+  ItemsScreen({this.item, this.menuList, this.image});
   @override
   _ItemsScreenState createState() => _ItemsScreenState();
 }
@@ -102,11 +104,12 @@ class _ItemsScreenState extends State<ItemsScreen> {
               children: <Widget>[
                 Container(
                   height: MediaQuery.of(context).size.height / 3.2,
-                  child: FadeInImage.assetNetwork(
-                    placeholder: 'assets/loader.gif',
-                    image: widget.item.image,
-                    fit: BoxFit.fill,
-                  ),
+                  child: widget.image,
+                  // child: FadeInImage.assetNetwork(
+                  //   placeholder: 'assets/loader.gif',
+                  //   image: widget.item.image,
+                  //   fit: BoxFit.fill,
+                  // ),
                 ),
                 Row(
                   children: <Widget>[
@@ -249,6 +252,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         setState((){
                           Cart.cartItems.add(CartItem(
                             item: widget.item,
+                            image: widget.image,
                             quantity: quantity,
                           ));
                         });
