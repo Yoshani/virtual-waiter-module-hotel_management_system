@@ -111,12 +111,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                             errorWidget: (context, url, error) => Icon(Icons.error),
                             fit: BoxFit.fill,
                           ),
-                          // child: FadeInImage.assetNetwork(
-                          //   placeholder: 'assets/loader.gif',
-                          //   image: menu.image,
-                          //   fit: BoxFit.fill,
-                          //   // height: 400,
-                          // ),
                         ),
                         
                         SizedBox(height: 10.0),

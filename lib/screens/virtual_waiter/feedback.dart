@@ -4,6 +4,18 @@ import 'package:flutter/services.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart'; 
 import 'bottom_nav_bar.dart';
 
+class NameFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Please enter a name' : null;
+  }
+}
+
+class FeedbackFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Please enter your feedback' : null;
+  }
+}
+
 class CustomerFeedback extends StatefulWidget {
   @override
   _CustomerFeedbackState createState() => _CustomerFeedbackState();
@@ -93,7 +105,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                         hintText: 'Enter your first and last name',
                         labelText: 'Name',
                     ),
-                    validator: (val) => val.isEmpty ? 'Please enter a name' : null,
+                    validator: NameFieldValidator.validate,
                     onChanged: (val) => setState(() => _customerName = val),
                   ),
                   SizedBox(height: 50.0),
@@ -122,7 +134,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                         hintText: 'Enter your feedback',
                         labelText: 'Feedback',
                     ),
-                    validator: (val) => val.isEmpty ? 'Please enter your feedback' : null,
+                    validator: FeedbackFieldValidator.validate,
                     onChanged: (val) => setState(() => _feedback = val),
                   ),
                   SizedBox(height: 50.0),

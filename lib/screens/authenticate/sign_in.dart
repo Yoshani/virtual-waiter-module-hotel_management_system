@@ -3,6 +3,20 @@ import 'package:hotel_management_system/shades/constants.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 import 'package:flutter/material.dart';
 
+
+class EmailFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Email can\'t be empty' : null;
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Password can\'t be empty' : null;
+  }
+}
+
+
 class SignIn extends StatefulWidget {
 
   final Function toggleView;
@@ -50,7 +64,7 @@ class _SignInState extends State<SignIn> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                validator: (val) => val.isEmpty ? 'Enter your email' : null,
+                validator: EmailFieldValidator.validate,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -59,7 +73,7 @@ class _SignInState extends State<SignIn> {
               TextFormField(
                 obscureText: true,
                 decoration: textInputDecoration.copyWith(hintText: 'Password'),
-                validator: (val) => val.length < 6 ? 'Enter your password' : null,
+                validator: PasswordFieldValidator.validate,
                 onChanged: (val) {
                   setState(() => password = val);
                 },

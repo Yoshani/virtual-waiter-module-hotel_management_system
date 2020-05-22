@@ -19,6 +19,7 @@ class BottomNavigation extends StatelessWidget {
         children: <Widget>[
           SizedBox(width:7),
           IconButton(
+            key: Key('homebutton'),
             icon: Icon(
               Icons.home,
               size: 24.0,
@@ -36,6 +37,7 @@ class BottomNavigation extends StatelessWidget {
             Stack(
               children: <Widget>[
                 IconButton(
+                  key: Key('cartbutton'),
                   icon: Icon(
                     Icons.shopping_cart,
                     size: 24.0,
@@ -73,6 +75,7 @@ class BottomNavigation extends StatelessWidget {
               ],
             )
           :IconButton(
+            key: Key('cartbutton'),
             icon: Icon(
               Icons.shopping_cart,
               size: 24.0,
@@ -94,6 +97,7 @@ class BottomNavigation extends StatelessWidget {
             ),
 
           IconButton(
+            key: Key('statusbutton'),
             icon: Icon(
               Icons.shopping_basket,
               size: 24.0,
@@ -108,6 +112,7 @@ class BottomNavigation extends StatelessWidget {
           ),
 
           IconButton(
+            key: Key('feedbackbutton'),
             icon: Icon(
               Icons.feedback,
               size: 24.0,

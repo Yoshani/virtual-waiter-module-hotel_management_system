@@ -3,6 +3,19 @@ import 'package:hotel_management_system/shades/constants.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 import 'package:flutter/material.dart';
 
+class EmailFieldValidator {
+  static String validate(String value) {
+    return value.isEmpty ? 'Email can\'t be empty' : null;
+  }
+}
+
+class PasswordFieldValidator {
+  static String validate(String value) {
+    return value.length < 6 ? 'Enter a password 6+ characters long' : null;
+  }
+}
+
+
 class Register extends StatefulWidget {
 
   final Function toggleView;
@@ -49,7 +62,7 @@ class _RegisterState extends State<Register> {
               SizedBox(height: 20.0),
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                validator: EmailFieldValidator.validate,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
@@ -58,7 +71,7 @@ class _RegisterState extends State<Register> {
               TextFormField(
                 decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 obscureText: true,
-                validator: (val) => val.length < 6 ? 'Enter a password 6+ characters long' : null,
+                validator: PasswordFieldValidator.validate,
                 onChanged: (val) {
                   setState(() => password = val);
                 },
