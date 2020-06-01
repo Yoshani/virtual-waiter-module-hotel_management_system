@@ -24,8 +24,8 @@ class _ItemTileState extends State<ItemTile> {
 
     var image = CachedNetworkImage(
       imageUrl: widget.item.image,
-      placeholder:(context, url) => Image.asset('assets/loader.gif'),
-      errorWidget: (context, url, error) => Icon(Icons.error),
+      placeholder:(context, url) => Image.asset('assets/setloader.gif'),
+      errorWidget: (context, url, error) => Image.asset('assets/setloader.gif'),
       fit: BoxFit.fill,
     );
 
@@ -48,7 +48,12 @@ class _ItemTileState extends State<ItemTile> {
             leading: CircleAvatar(
             radius: 40.0,
             backgroundColor: Colors.white,
-            backgroundImage: CachedNetworkImageProvider(widget.item.image),
+            child: ClipOval(child:CachedNetworkImage(
+              imageUrl: widget.item.image,
+              placeholder:(context, url) => Image.asset('assets/miniloader.gif'),
+              errorWidget: (context, url, error) => Image.asset('assets/miniloader.gif'),
+              fit: BoxFit.fill,
+            ),),
             ),
             title:Text(
               widget.item.name,

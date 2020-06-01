@@ -1,8 +1,11 @@
+import 'dart:async';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/shades/constants.dart';
 import 'cart.dart';
 import 'settings.dart';
+
 
 class PositionForm extends StatefulWidget {
   final int subtotal;
@@ -26,6 +29,53 @@ class _PositionFormState extends State<PositionForm> {
       seats.add(i);
     }
     return seats;
+  }
+
+  //check device internet connectivity
+  Future<bool> check() async {
+    var connectivityResult = await (Connectivity().checkConnectivity());
+    if (connectivityResult == ConnectivityResult.mobile) {
+      print('Connected to a mobile network.');
+      return true;
+    } else if (connectivityResult == ConnectivityResult.wifi) {
+      print('Connected to a wifi network.');
+      return true;
+    }
+    return false;
+  }
+
+  //create alert
+  Widget doAlert(String message){
+    return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(20.0))
+      ),
+      backgroundColor: Colors.red[400],
+      title: Text(
+        message,
+        style: TextStyle(
+          color: Colors.white,
+          fontWeight: FontWeight.w500,
+          fontSize: 22,
+        ),
+      ),
+      actions: [
+        FlatButton(
+          color: Colors.white,
+          child: Text(
+            "OK",
+            style: TextStyle(
+              color: Colors.red,
+              fontWeight: FontWeight.w500,
+              fontSize: 20,
+            ),
+          ),
+          onPressed: () {
+            Navigator.of(context).pop();
+          }
+        )
+      ],
+    );
   }
 
 
@@ -67,18 +117,65 @@ class _PositionFormState extends State<PositionForm> {
                 fontSize: 20
                 ),
             ),
-            onPressed: () async {
-              if(_formKey.currentState.validate() && _seat!=null){
-                await VWaiterDatabase2().placeOrder(
-                  Cart.cartItems,
-                  _seat,
-                  widget.subtotal,
-                  widget.total
-                );
-                Cart.cartItems = [];
-                widget.onCartChanged();
-                Navigator.popAndPushNamed(context, '/orderStatus');
-              }
+            onPressed: () {
+              check().then((internet) async {
+                if (internet != null && internet ) {
+                  print("connected");
+                  if(_formKey.currentState.validate() && _seat!=null && Cart.cartItems.length>0){
+                    Cart.cartItems = [];
+                    widget.onCartChanged();
+                    bool complete = false;
+                    while(!complete){
+                      Navigator.pushNamed(context, '/orderloading');
+                      Timer(Duration(seconds: 10), () {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {                   
+                            return doAlert("Oops! Something is wrong with our connection. Please support us while we sort things out."); 
+                          }
+                        );
+                      });
+                      complete = await VWaiterDatabase2().placeOrder(
+                        Cart.cartItems,
+                        _seat,
+                        widget.subtotal,
+                        widget.total
+                      );
+                    }
+                    Navigator.pop(context);                                   
+                    Navigator.popAndPushNamed(context, '/orderStatus');
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        Future.delayed(Duration(seconds: 7), () {
+                          Navigator.of(context).pop(true);
+                        });
+                        return AlertDialog(
+                          backgroundColor: Colors.lightBlue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(50.0))
+                          ),
+                          title: Text(
+                            "Order placed for seat $_seat",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 22,
+                            ),
+                          ),
+                        );
+                    }); 
+                  }
+                }else{
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {                   
+                      return doAlert("Please connect your device to wifi or mobile data to proceed"); 
+                    }
+                  );
+                }                   
+              });
+
             }
           ),
         ],

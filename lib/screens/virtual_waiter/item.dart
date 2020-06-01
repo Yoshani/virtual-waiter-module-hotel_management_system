@@ -105,11 +105,6 @@ class _ItemsScreenState extends State<ItemsScreen> {
                 Container(
                   height: MediaQuery.of(context).size.height / 3.2,
                   child: widget.image,
-                  // child: FadeInImage.assetNetwork(
-                  //   placeholder: 'assets/loader.gif',
-                  //   image: widget.item.image,
-                  //   fit: BoxFit.fill,
-                  // ),
                 ),
                 Row(
                   children: <Widget>[
@@ -221,18 +216,26 @@ class _ItemsScreenState extends State<ItemsScreen> {
                           context: context,
                           builder: (BuildContext context) {                   
                             return AlertDialog(
+                              backgroundColor: Colors.lightBlue[300],
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.all(Radius.circular(20.0))
+                              ),
                               title: Text(
                                 "Please specify a quantity",
                                 style: TextStyle(
-                                  color: Colors.indigo[900],
+                                  color: Colors.white,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 22,
                                 ),
                               ),
                               actions: [
                                 FlatButton(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(Radius.circular(100.0))
+                                  ),
+                                  color: Colors.white,
                                   child: Text(
-                                    "Got it",
+                                    "OK",
                                     style: TextStyle(
                                       color: Colors.cyan[400],
                                       fontWeight: FontWeight.w500,

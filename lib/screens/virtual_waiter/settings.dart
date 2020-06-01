@@ -25,7 +25,7 @@ class _SettingsState extends State<Settings> {
       stream: VWaiterDatabase2().tables,
       builder: (context, snapshot) {
         if(!snapshot.hasData){
-          return Loading();
+          return Image.asset('assets/setloader.gif');
         }
         List<RestaurantTable> tables = snapshot.data;
         return Form(

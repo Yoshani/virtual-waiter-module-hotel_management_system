@@ -18,8 +18,6 @@ class CartTile extends StatefulWidget {
 
 class _CartTileState extends State<CartTile> {
 
-  String image;
-
   @override
   Widget build(BuildContext context) {
 

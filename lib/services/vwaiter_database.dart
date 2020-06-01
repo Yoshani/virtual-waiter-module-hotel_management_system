@@ -251,3 +251,69 @@
 
 
 // }
+
+
+
+//  Future<bool> checkConnection() async {
+//     bool hasConnection;
+// try {
+//   await Firestore.instance
+//     .runTransaction((Transaction tx) {})
+//     .timeout(Duration(seconds: 5));
+//   hasConnection = true;
+// } catch(PlatformException) { // May be thrown on Airplane mode
+//   hasConnection = false;
+// } catch(TimeoutException) {
+//   hasConnection = false;
+// } catch (_) {
+//   hasConnection = false;
+// }
+//     return hasConnection;
+//   }
+
+//  Future<bool> checkConnection() async {
+//     bool hasConnection;
+// int timeout = 5;
+// try {
+//   http.Response response = await http.get('someUrl').
+//       timeout(Duration(seconds: timeout));
+//   if (response.statusCode == 200) {
+//     // do something
+//   } else {
+//     // handle it
+//   }
+// } on TimeoutException catch (e) {
+//   print('Timeout Error: $e');
+// } on SocketException catch (e) {
+//   print('Socket Error: $e');
+// } on Error catch (e) {
+//   print('General Error: $e');
+// }
+//     return hasConnection;
+//   }
+
+// Future<bool> isInternet() async {
+//     var connectivityResult = await (Connectivity().checkConnectivity());
+//     if (connectivityResult == ConnectivityResult.mobile) {
+//       // I am connected to a mobile network, make sure there is actually a net connection.
+//       if (await DataConnectionChecker().hasConnection) {
+//         // Mobile data detected & internet connection confirmed.
+//         return true;
+//       } else {
+//         // Mobile data detected but no internet connection found.
+//         return false;
+//       }
+//     } else if (connectivityResult == ConnectivityResult.wifi) {
+//       // I am connected to a WIFI network, make sure there is actually a net connection.
+//       if (await DataConnectionChecker().hasConnection) {
+//         // Wifi detected & internet connection confirmed.
+//         return true;
+//       } else {
+//         // Wifi detected but no internet connection found.
+//         return false;
+//       }
+//     } else {
+//       // Neither mobile data or WIFI detected, not internet connection found.
+//       return false;
+//     }
+//   }

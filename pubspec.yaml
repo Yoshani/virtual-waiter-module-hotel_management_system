@@ -36,11 +36,18 @@ dependencies:
   firebase_analytics: ^5.0.11
   transparent_image: ^1.0.0
   smooth_star_rating: 1.0.3
-  intl: ^0.16.1
+  intl: ^0.16.0
   shared_preferences: ^0.5.7
   cached_network_image: ^2.1.0+1
+  data_connection_checker: ^0.3.3
+  connectivity: ^0.4.8+6
+  http: ^0.12.1
+
 
 dev_dependencies:
+  flutter_driver:
+    sdk: flutter
+  test: any
   flutter_test:
     sdk: flutter
   mockito: ^4.1.1

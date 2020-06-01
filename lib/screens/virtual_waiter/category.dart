@@ -107,8 +107,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           width: MediaQuery.of(context).size.width,
                           child:CachedNetworkImage(
                             imageUrl: menu.image,
-                            placeholder:(context, url) => Image.asset('assets/loader.gif'),
-                            errorWidget: (context, url, error) => Icon(Icons.error),
+                            placeholder:(context, url) => Image.asset('assets/catloader.gif'),
+                            errorWidget: (context, url, error) => Image.asset('assets/catloader.gif'),
                             fit: BoxFit.fill,
                           ),
                         ),

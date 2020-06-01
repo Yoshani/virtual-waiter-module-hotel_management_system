@@ -75,7 +75,7 @@ class VWaiterDatabase2 {
 
 
   //place order
-  Future<void> placeOrder(List<CartItem> cartItems, int seat, int subtotal, int total) async{
+  Future<bool> placeOrder(List<CartItem> cartItems, int seat, int subtotal, int total) async{
 
     await orderCollection.add({
       'seat': seat,
@@ -84,11 +84,14 @@ class VWaiterDatabase2 {
       'total': total,
       'dateTime': DateTime.now(),
       'table': tableCollection.document(Settings.table.tableId),
-      'orderItems': toMap(cartItems)
+      'orderItems': toMap(cartItems),
+      'staffInteract': {}
     });
+    return true;
   }
 
   List toMap(List<CartItem> cartItems) {
+    Map offerSoldList = {};
     List orderItems = [];
     for(CartItem cartItem in cartItems){
       if(cartItem.item is Item){
@@ -98,16 +101,30 @@ class VWaiterDatabase2 {
           'offer': null
         });
       }else{
-        for(var offerItem in cartItem.offer.items){
+        if (!offerSoldList.containsKey(cartItem.offer.offerid)){
+          offerSoldList[cartItem.offer.offerid] = cartItem.offer.sold;
+        }
+        offerSoldList[cartItem.offer.offerid] = cartItem.quantity + offerSoldList[cartItem.offer.offerid];
+        for(var offerItem in cartItem.offer.items){         
           orderItems.add({
             'item': offerItem['item'],
             'qty' : offerItem['quantity']*cartItem.quantity,
             'offer': cartItem.offer.name
-          });
+          });                      
         }
       }
-    }
+    } 
+    offerSold(offerSoldList);
     return orderItems;
+  }
+
+  // update offer sold amount
+  Future<void> offerSold(Map offerAmounts) async{
+    for(var id in offerAmounts.keys){
+      await offerCollection.document(id).updateData({
+      'sold': offerAmounts[id]
+    });
+    }
   }
 
 
@@ -158,10 +175,12 @@ class VWaiterDatabase2 {
   List<Offer> offerListFromSnapshot (QuerySnapshot snapshot) {
     return snapshot.documents.map((doc){
       return Offer(
+        offerid: doc.documentID,
         items: doc.data['items'] ?? '',
         name: doc.data['name']  ?? '',
         price: doc.data['price'] ?? '',
-        validTill: DateTime.parse(doc.data['validTill'].toDate().toString()) ?? ''
+        validTill: DateTime.parse(doc.data['validTill'].toDate().toString()) ?? '',
+        sold: doc.data['sold'] ?? ''
       );      
     }).toList();
   }
@@ -190,11 +209,4 @@ class VWaiterDatabase2 {
     }
     return offerItems;
   }  
-
-
-
- 
-
-
-
 }

@@ -14,7 +14,7 @@ class _OrderTileState extends State<OrderTile> {
   @override
   Widget build(BuildContext context) {
 
-    //get image as per status
+    //get image as per status or finished button if served
     Container statusImage(){
       switch (widget.order.status) {
         case "placed":
@@ -80,6 +80,27 @@ class _OrderTileState extends State<OrderTile> {
                     onPressed: (){
                       VWaiterDatabase2().finishOrder(widget.order);
                       Navigator.pushNamed(context, '/feedback');
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          Future.delayed(Duration(seconds: 5), () {
+                            Navigator.of(context).pop(true);
+                          });
+                          return AlertDialog(
+                            backgroundColor: Colors.lightBlue[300],
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(50.0))
+                            ),
+                            title: Text(
+                              "Thank you for dining with us. A waiter will arrive shortly",
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 22,
+                              ),
+                            ),
+                          );
+                      });
                     },
                   ),
                 );        
@@ -87,7 +108,7 @@ class _OrderTileState extends State<OrderTile> {
         default:
         return Container(
               width:200,
-            );
+          );
       }
     }
 

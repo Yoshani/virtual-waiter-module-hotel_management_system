@@ -9,26 +9,26 @@ import 'package:mockito/mockito.dart';
 
 
 
-// class MockItem extends Mock implements Item{}
-// class MockMenu extends Mock implements Menu{}
+class MockItem extends Mock implements Item{}
+class MockMenu extends Mock implements Menu{}
 
 void main() {
   // MockItem _item = MockItem();
   // MockMenu _menu = MockMenu();
-  // Item _item = Item(name: "Test", description: "Test", persons: 2, price: 350);
-  // Menu _menu = Menu();
-  // List<Menu> _menuList = [_menu, _menu, _menu];
-  // final CachedNetworkImage _image = CachedNetworkImage(imageUrl: "assets/vwaiter/food.jpg",);
+  Item _item = Item(name: "Test", description: "Test", persons: 2, price: 350);
+  Menu _menu = Menu();
+  List<Menu> _menuList = [_menu, _menu, _menu];
+  final CachedNetworkImage _image = CachedNetworkImage(imageUrl: "assets/vwaiter/food.jpg",);
 
-  //   MaterialApp app = MaterialApp(
-  //   home: Scaffold(
-  //       body:  ItemsScreen(
-  //         item: _item,
-  //         menuList: _menuList,
-  //         image: _image,
-  //       )
-  //   ),
-  // );
+    MaterialApp app = MaterialApp(
+    home: Scaffold(
+        body:  ItemsScreen(
+          item: _item,
+          menuList: _menuList,
+          image: _image,
+        )
+    ),
+  );
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     Item _item = Item(name: "Test", description: "Test", persons: 2, price: 350);
     Menu _menu = Menu(category: "Test");

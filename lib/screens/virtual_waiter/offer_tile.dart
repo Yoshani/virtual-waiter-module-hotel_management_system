@@ -4,6 +4,7 @@ import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:intl/intl.dart';
 import 'cart.dart';
+import 'custom_future_builder.dart';
 import 'offer_tile_item.dart';
 
 class OfferTile extends StatefulWidget {
@@ -31,7 +32,7 @@ class _OfferTileState extends State<OfferTile> {
       return DateFormat.yMMMd().format(date);
     }
 
-    return FutureBuilder<List<CartItem>>(
+    return KeepAliveFutureBuilder(
       future: VWaiterDatabase2().getOfferItems(widget.offer.items),
       builder: (context, snapshot) {
         if(!snapshot.hasData){

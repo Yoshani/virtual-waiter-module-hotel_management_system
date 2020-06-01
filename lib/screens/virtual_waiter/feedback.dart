@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +32,18 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
 
   @override
   Widget build(BuildContext context) {
+
+    // Future<bool> check() async {
+    //   var connectivityResult = await (Connectivity().checkConnectivity());
+    //   if (connectivityResult == ConnectivityResult.mobile) {
+    //     print('Connected to a mobile network.');
+    //     return true;
+    //   } else if (connectivityResult == ConnectivityResult.wifi) {
+    //     print('Connected to a wifi network.');
+    //     return true;
+    //   }
+    //   return false;
+    // }
  
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -187,8 +200,29 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                     onPressed: () async {
                       SystemChrome.setEnabledSystemUIOverlays ([]);
                       if(_formKey.currentState.validate()){
-                        VWaiterDatabase2().submitFeedback(_customerName, _feedback, rating);
+                        // VWaiterDatabase2().submitFeedback(_customerName, _feedback, rating);
                         Navigator.popUntil(context, ModalRoute.withName('/'));
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            Future.delayed(Duration(seconds: 5), () {
+                              Navigator.of(context).pop(true);
+                            });
+                            return AlertDialog(
+                              backgroundColor: Colors.lightBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(50.0))
+                              ),
+                              title: Text(
+                                "Thank you for your feedback",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            );
+                        });                       
                       }
                     }
                   ),

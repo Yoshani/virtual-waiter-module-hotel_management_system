@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:hotel_management_system/screens/wrapper.dart';
 import 'package:hotel_management_system/services/auth.dart';
+import 'package:hotel_management_system/shades/order_placed_loading.dart';
 import 'package:provider/provider.dart';
 
 void main() => runApp(MyApp());
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
             '/cart': (context) => Cart(),
             '/orderStatus': (context) => OrderStatus(),
             '/feedback': (context) => CustomerFeedback(),
+            '/orderloading': (context) => OrderLoading(),
           },
         ),
       ),

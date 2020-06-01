@@ -21,7 +21,12 @@ class _OfferTileItemState extends State<OfferTileItem> {
       leading: CircleAvatar(
             radius: 40.0,
             backgroundColor: Colors.white,
-            backgroundImage: CachedNetworkImageProvider(widget.offerItem.item.image), 
+            child: ClipOval(child:CachedNetworkImage(
+              imageUrl: widget.offerItem.item.image,
+              placeholder:(context, url) => Image.asset('assets/miniloader.gif'),
+              errorWidget: (context, url, error) => Image.asset('assets/miniloader.gif'),
+              fit: BoxFit.fill,
+            ),),
             ),
       title:Text(
         '${widget.offerItem.quantity}  ${widget.offerItem.item.name}',
