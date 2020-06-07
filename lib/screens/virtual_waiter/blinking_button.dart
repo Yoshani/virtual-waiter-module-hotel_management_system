@@ -13,32 +13,33 @@ import 'package:hotel_management_system/screens/virtual_waiter/special_offers.da
     @override
     void initState() {
       _animationController =
-          new AnimationController(vsync: this, duration: Duration(seconds: 1));
+          AnimationController(vsync: this, duration: Duration(seconds: 1));
       _animationController.repeat();
       super.initState();
     }
 
     @override
     Widget build(BuildContext context) {
-      return FadeTransition(
-        opacity: _animationController,
-        child: Container(
-          padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
-          decoration: BoxDecoration(
-            color: Colors.amber,
-            borderRadius: BorderRadius.all(
-              Radius.circular(50),
-            )
+      return InkWell(
+        key: Key('blinking-button'),
+        onTap:() {Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (BuildContext context){
+              return Offers(
+              );
+            },
           ),
-          child: InkWell(
-            onTap:() {Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (BuildContext context){
-                  return Offers(
-                  );
-                },
-              ),
-            );},
+        );},
+        child: FadeTransition(       
+          opacity: _animationController,
+          child: Container(
+            padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+            decoration: BoxDecoration(
+              color: Colors.amber,
+              borderRadius: BorderRadius.all(
+                Radius.circular(50),
+              )
+            ),
             child: Text(
               "    Check Out Special Offers   ",
               style: TextStyle(
@@ -47,7 +48,7 @@ import 'package:hotel_management_system/screens/virtual_waiter/special_offers.da
               fontSize: 23,
               ),
             ),
-          )
+          ),
         ),
       );
     }

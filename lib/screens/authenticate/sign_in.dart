@@ -63,6 +63,7 @@ class _SignInState extends State<SignIn> {
             children: <Widget>[
               SizedBox(height: 20.0),
               TextFormField(
+                key: Key('enter-email'),
                 decoration: textInputDecoration.copyWith(hintText: 'Email'),
                 validator: EmailFieldValidator.validate,
                 onChanged: (val) {
@@ -71,6 +72,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 20.0),
               TextFormField(
+                key: Key('enter-password'),
                 obscureText: true,
                 decoration: textInputDecoration.copyWith(hintText: 'Password'),
                 validator: PasswordFieldValidator.validate,
@@ -80,6 +82,7 @@ class _SignInState extends State<SignIn> {
               ),
               SizedBox(height: 40.0),
               RaisedButton(
+                key: Key('signin'),
                 color: Colors.cyan[400],
                 child: Text(
                   'Sign In',

@@ -39,7 +39,6 @@ dependencies:
   intl: ^0.16.0
   shared_preferences: ^0.5.7
   cached_network_image: ^2.1.0+1
-  data_connection_checker: ^0.3.3
   connectivity: ^0.4.8+6
   http: ^0.12.1
 

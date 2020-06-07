@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/shades/constants.dart';
 import 'cart.dart';
@@ -96,6 +98,7 @@ class _PositionFormState extends State<PositionForm> {
             ),
           SizedBox(height: 20.0),
           DropdownButtonFormField(
+            key: Key('dropdownbuttonformfield'),
             value: _seat ?? null,
             hint: Text("Select your seat from the drop down menu"),
             decoration: textInputDecoration,
@@ -109,6 +112,7 @@ class _PositionFormState extends State<PositionForm> {
           ),
           SizedBox(height: 50.0),
           RaisedButton(
+            key: Key('submit'),
             color: Colors.cyan[400],
             child: Text(
               'Submit',
@@ -120,52 +124,57 @@ class _PositionFormState extends State<PositionForm> {
             onPressed: () {
               check().then((internet) async {
                 if (internet != null && internet ) {
-                  print("connected");
-                  if(_formKey.currentState.validate() && _seat!=null && Cart.cartItems.length>0){
-                    Cart.cartItems = [];
-                    widget.onCartChanged();
+                
+                 
+                    if(_formKey.currentState.validate() && _seat!=null && Cart.cartItems.length>0){
+                    Navigator.pushNamed(context, '/orderloading');
+
                     bool complete = false;
-                    while(!complete){
-                      Navigator.pushNamed(context, '/orderloading');
+                    
+                    while(!complete){                   
                       Timer(Duration(seconds: 10), () {
                         showDialog(
                           context: context,
                           builder: (BuildContext context) {                   
-                            return doAlert("Oops! Something is wrong with our connection. Please support us while we sort things out."); 
+                            return doAlert("Oops! Something is wrong with our network connection. Your order will be placed once connection is regained."); 
                           }
                         );
                       });
-                      complete = await VWaiterDatabase2().placeOrder(
-                        Cart.cartItems,
-                        _seat,
-                        widget.subtotal,
-                        widget.total
-                      );
-                    }
-                    Navigator.pop(context);                                   
-                    Navigator.popAndPushNamed(context, '/orderStatus');
-                    showDialog(
-                      context: context,
-                      builder: (context) {
-                        Future.delayed(Duration(seconds: 7), () {
-                          Navigator.of(context).pop(true);
-                        });
-                        return AlertDialog(
-                          backgroundColor: Colors.lightBlue,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(50.0))
-                          ),
-                          title: Text(
-                            "Order placed for seat $_seat",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 22,
-                            ),
-                          ),
+                      // try{
+                        complete = await VWaiterDatabase2().placeOrder(
+                          Cart.cartItems,
+                          _seat,
+                          widget.subtotal,
+                          widget.total
                         );
-                    }); 
-                  }
+                    }
+
+                    Cart.cartItems = [];
+                    widget.onCartChanged();
+                        Navigator.pop(context);                                   
+                        Navigator.popAndPushNamed(context, '/orderStatus');
+                        showDialog(
+                          context: context,
+                          builder: (context) {
+                            Future.delayed(Duration(seconds: 7), () {
+                              Navigator.of(context).pop(true);
+                            });
+                            return AlertDialog(
+                              backgroundColor: Colors.lightBlue,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(50.0))
+                              ),
+                              title: Text(
+                                "Order placed for seat $_seat",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 22,
+                                ),
+                              ),
+                            );
+                        }); 
+                      }
                 }else{
                   showDialog(
                     context: context,

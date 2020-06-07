@@ -112,55 +112,55 @@ class _OrderStatusState extends State<OrderStatus> {
               )
               //display order status if available
                 :Column(
-                  children: <Widget>[
-                    Center(
-                      child: Text(
-                        "Orders placed are displayed according to your seat number.",
-                        style: TextStyle(
-                        color: Colors.indigo[900],
-                        fontWeight: FontWeight.w800,
-                        fontSize: 20,
+                    children: <Widget>[
+                      Center(
+                        child: Text(
+                          "Orders placed are displayed according to your seat number.",
+                          style: TextStyle(
+                          color: Colors.indigo[900],
+                          fontWeight: FontWeight.w800,
+                          fontSize: 20,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 10.0),
-                    Center(
-                      child: Text(
-                        "Once you are done with your meal, be sure to click finished.",
-                        style: TextStyle(
-                        color: Colors.indigo[500],
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                      SizedBox(height: 10.0),
+                      Center(
+                        child: Text(
+                          "Once you are done with your meal, be sure to click finished.",
+                          style: TextStyle(
+                          color: Colors.indigo[500],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height:5.0),
-                    Center(
-                      child: Text(
-                        "We will be at your service in no time!",
-                        style: TextStyle(
-                        color: Colors.indigo[500],
-                        fontWeight: FontWeight.w500,
-                        fontSize: 20,
+                      SizedBox(height:5.0),
+                      Center(
+                        child: Text(
+                          "We will be at your service in no time!",
+                          style: TextStyle(
+                          color: Colors.indigo[500],
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                          ),
                         ),
                       ),
-                    ),
-                    SizedBox(height: 45.0),
-                    Container(
-                      height: 495.0,
-                      child: ListView.builder(
-                        itemCount: orderList.length,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) {
-                          return OrderTile(
-                            order: orderList[index], 
-                          );
-                        },
-                      ),
-                    )
-                  ],
-                ),             
+                      SizedBox(height: 45.0),
+                      Container(
+                          height: MediaQuery.of(context).size.height / 2,
+                          child: ListView.builder(
+                      itemCount: orderList.length,
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return OrderTile(
+                          order: orderList[index], 
+                        );
+                      },
+                          ),
+                        )
+                    ],
+                  ),             
               ],
             ),
           ),

@@ -119,6 +119,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           height: MediaQuery.of(context).size.height / 4,
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
+                            key: Key('${menu.category}-category-list'),
                             scrollDirection: Axis.vertical,
                             itemCount: itemList.length,
                             shrinkWrap: true,

@@ -115,47 +115,47 @@ class _OrderTileState extends State<OrderTile> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(5.0,0,5.0,15.0),
       child: Container(
-        height: 150.0,
-        decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.indigo[900],
-        ),
-        borderRadius: BorderRadius.all(Radius.circular(20)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(15.0,0,0,0),
-              child: Text(
-                'Seat ${widget.order.seat.toString()}',
-                style: TextStyle(
-                  color: Colors.indigo[400],
-                  fontWeight: FontWeight.w900,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            statusImage(),           
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0,0,8,0),
-                  child: Text(
-                    "Your order is ${widget.order.status}",
-                    style: TextStyle(
-                      color: Colors.indigo[900],
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ],
+          height: 150.0,
+          decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.indigo[900],
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+      Padding(
+        padding: const EdgeInsets.fromLTRB(15.0,0,0,0),
+        child: Text(
+          'Seat ${widget.order.seat.toString()}',
+          style: TextStyle(
+            color: Colors.indigo[400],
+            fontWeight: FontWeight.w900,
+            fontSize: 25,
+          ),
         ),
       ),
+      statusImage(),           
+      Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0,0,8,0),
+            child: Text(
+              "Your order is ${widget.order.status}",
+              style: TextStyle(
+                color: Colors.indigo[900],
+                fontWeight: FontWeight.w500,
+                fontSize: 20,
+              ),
+            ),
+          ),
+        ],
+      ),
+            ],
+          ),
+        ),
     );
 
   }

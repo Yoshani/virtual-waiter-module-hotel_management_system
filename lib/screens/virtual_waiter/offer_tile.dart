@@ -112,6 +112,7 @@ class _OfferTileState extends State<OfferTile> {
                       Container(
                         height: 40.0,
                         child: RaisedButton(
+                          key: Key("add-offer-${widget.offer.name}-to-cart"),
                           elevation: 3.0,
                           color: Colors.red[900],
                           shape: RoundedRectangleBorder(
@@ -131,6 +132,7 @@ class _OfferTileState extends State<OfferTile> {
                           ),
 
                           onPressed: (){
+                            print("add-offer-${widget.offer.name}-to-cart");
                             Cart.cartItems.add(CartItem(
                             offer: widget.offer,
                             quantity: 1,

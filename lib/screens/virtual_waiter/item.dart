@@ -150,6 +150,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                               Column(
                                 children: <Widget>[
                                   IconButton(
+                                    key: Key('increase-quantity'),
                                     icon: Icon(
                                       Icons.add,
                                       color: Colors.red[900],
@@ -159,6 +160,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                     })
                                   ),
                                   IconButton(
+                                    key: Key('decrease-quantity'),
                                     icon: Icon(
                                       Icons.remove,
                                       color: Colors.red[900],
@@ -182,6 +184,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                   color: Colors.white,
                   height: 50.0,
                   child: RaisedButton(
+                    key: Key('add-item-to-cart'),
                     color: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: new BorderRadius.circular(18.0),

@@ -65,6 +65,7 @@ class _VwaiterHomeState extends State<VwaiterHome> {
           leading: Builder(
             builder: (BuildContext context) {
               return PopupMenuButton<Widget>(
+                key: Key('logout'),
                 itemBuilder: (context) => [
                   PopupMenuItem(
                     child: FlatButton.icon(
@@ -85,13 +86,16 @@ class _VwaiterHomeState extends State<VwaiterHome> {
             },
           ),
           actions: <Widget>[
-
-            GestureDetector(
-              child: Icon(
-                Icons.settings,
-                color: Colors.grey[500],
-                ),
-              onTap: () => _showSettingsPanel(),
+            Tooltip(
+              message: "Virtual Waiter Settings",
+              child: GestureDetector(
+                key: Key('vwaiter-settings'),
+                child: Icon(
+                  Icons.settings,              
+                  color: Colors.grey[500],
+                  ),
+                onTap: () => _showSettingsPanel(),
+              ),
             ),
           ]
         ),

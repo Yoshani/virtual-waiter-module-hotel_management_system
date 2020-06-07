@@ -1,39 +1,56 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:flutter/material.dart';
+import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
+import 'package:hotel_management_system/screens/virtual_waiter/cart.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/customer_seat.dart';
-import 'package:hotel_management_system/services/auth.dart';
-import 'package:mockito/mockito.dart';
-// PositionForm(subtotal: 100, total: 100, onCartChanged: (){})
+import 'package:hotel_management_system/screens/virtual_waiter/settings.dart';
 
-void main(){
-  Future<void> pumpArgumentWidget(
-    WidgetTester tester, {
-    @required Object args,
-    @required Widget child,
-  }) async {
-    final key = GlobalKey<NavigatorState>();
+void main() {
+  Cart.cartItems = [];
+  Settings.table = RestaurantTable(seats: 1);
+
+  testWidgets('Customer seat prompt test',(WidgetTester tester) async {
+
     await tester.pumpWidget(
-      MaterialApp(
-        navigatorKey: key,
-        home: FlatButton(
-          onPressed: () => key.currentState.push(
-            MaterialPageRoute<void>(
-              settings: RouteSettings(arguments: args),
-              builder: (_) => child
-            ),
-          ),
-          child: const SizedBox(),
-        ),
+        MaterialApp(
+        home: Scaffold(
+          body: PositionForm(
+            total: 0, 
+            subtotal: 0, 
+            onCartChanged: (){}
+          )
+        )
       ),
     );
+    await tester.pumpAndSettle();
+    //finds test widget
+    expect(find.byType(PositionForm), findsOneWidget);
 
-    testWidgets('test seat', (WidgetTester tester) async{
-      await pumpArgumentWidget(tester, args: null, child: null);
-      await tester.tap(find.byType(FlatButton));
-      await tester.pumpAndSettle();
-    });
+    //finds position form UI
+    expect(find.text('Please specify your seat number'), findsOneWidget);
 
-     // Might need to be removed when testing infinite animations
-    // expect(find.byType(PositionForm), findsOneWidget);  
-  }
+    Finder dropdown = find.byKey(Key('dropdownbuttonformfield'));
+    Finder submit = find.byKey(Key('submit'));
+    expect(dropdown, findsOneWidget);
+    expect(submit, findsOneWidget);
+
+    //cannot submit order with empty seat
+    await tester.tap(submit);
+    await tester.pumpAndSettle();
+    expect(find.byType(PositionForm), findsOneWidget);
+
+    // select a seat
+    await tester.tap(dropdown);
+    print("Drop down button pressed");
+    Finder seat = find.text('Seat 1');
+    expect(seat, findsOneWidget);
+    await tester.tap(seat);
+    expect(seat, findsOneWidget);
+
+    //cannot submit order with empty cart
+    await tester.tap(submit);
+    await tester.pumpAndSettle();
+    expect(find.byType(PositionForm), findsOneWidget);
+
+  });
 }

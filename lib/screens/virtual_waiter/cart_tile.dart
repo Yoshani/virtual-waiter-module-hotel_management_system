@@ -3,6 +3,16 @@ import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'cart.dart';
 
+class CheckItemType{
+  static bool checkItemType(CartItem cartItem){
+    if(cartItem.item is Item){
+      return true;
+    }
+    return false;
+  }
+}
+
+
 class CartTile extends StatefulWidget {
   final CartItem cartItem;
   final VoidCallback onCartChanged; //set state of cart
@@ -20,13 +30,6 @@ class _CartTileState extends State<CartTile> {
 
   @override
   Widget build(BuildContext context) {
-
-    bool checkItemType(CartItem cartItem){
-      if(cartItem.item is Item){
-        return true;
-      }
-      return false;
-    }
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(5.0,0,5.0,5.0),
@@ -56,6 +59,7 @@ class _CartTileState extends State<CartTile> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     GestureDetector(
+                      key: Key('addbutton'),
                       child: Icon(
                       Icons.add,
                       color: Colors.indigo[900],
@@ -67,7 +71,7 @@ class _CartTileState extends State<CartTile> {
                       },
                     ),
                     SizedBox(width: 10.0),
-                    Text(
+                    Text(                     
                       widget.cartItem.quantity.toString(),
                       style: TextStyle(
                         color: Colors.indigo[900],
@@ -77,6 +81,7 @@ class _CartTileState extends State<CartTile> {
                     ),
                     SizedBox(width: 10.0),
                     GestureDetector(
+                      key: Key('subtractbutton'),
                       child: Icon(
                       Icons.remove,
                       color: Colors.indigo[900],
@@ -95,7 +100,7 @@ class _CartTileState extends State<CartTile> {
             ),
 
             Container(
-              child: checkItemType(widget.cartItem)?
+              child: CheckItemType.checkItemType(widget.cartItem)?
               widget.cartItem.image  
               :Image.asset('assets/vwaiter/offer.jpg')
             ),
@@ -104,7 +109,7 @@ class _CartTileState extends State<CartTile> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 Text(
-                  checkItemType(widget.cartItem)?
+                  CheckItemType.checkItemType(widget.cartItem)?
                   widget.cartItem.item.name
                   :widget.cartItem.offer.name,
                   style: TextStyle(
@@ -114,7 +119,7 @@ class _CartTileState extends State<CartTile> {
                   ),
                 ),
                 Text(
-                  checkItemType(widget.cartItem)?
+                  CheckItemType.checkItemType(widget.cartItem)?
                   "Rs. ${widget.cartItem.item.price.toString()}"
                   : "Rs. ${widget.cartItem.offer.price.toString()}",                
                   style: TextStyle(
@@ -128,6 +133,7 @@ class _CartTileState extends State<CartTile> {
             Align(
               alignment: Alignment.topRight,
               child: IconButton(
+                key: Key('removebutton'),
                 icon: Icon(
                   Icons.close,
                   color: Colors.red[900],

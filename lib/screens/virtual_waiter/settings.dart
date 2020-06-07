@@ -42,6 +42,7 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 50.0),
               DropdownButtonFormField(
+                key: Key('vwaiter-dropdown'),
                 hint: Text("Select a table"),
                 decoration: textInputDecoration,  //from constants.dart
                 items: tables.map((table) {
@@ -66,6 +67,7 @@ class _SettingsState extends State<Settings> {
               ),
               SizedBox(height: 50.0),
               RaisedButton(
+                key: Key('save-settings'),
                 color: Colors.cyan[400],
                 child: Text(
                   'Save',

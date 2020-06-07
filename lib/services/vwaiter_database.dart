@@ -261,9 +261,9 @@
 //     .runTransaction((Transaction tx) {})
 //     .timeout(Duration(seconds: 5));
 //   hasConnection = true;
-// } catch(PlatformException) { // May be thrown on Airplane mode
+// } on PlatformException catch(e) { // May be thrown on Airplane mode
 //   hasConnection = false;
-// } catch(TimeoutException) {
+// } on TimeoutException catch(e) {
 //   hasConnection = false;
 // } catch (_) {
 //   hasConnection = false;

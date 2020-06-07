@@ -30,6 +30,7 @@ class _ItemTileState extends State<ItemTile> {
     );
 
     return InkWell(
+    key: Key('${widget.item.name}'),
     onTap: (){
       Navigator.of(context).push(
         MaterialPageRoute(

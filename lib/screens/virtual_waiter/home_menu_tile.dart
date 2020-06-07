@@ -24,7 +24,9 @@ class _HomeMenuTileState extends State<HomeMenuTile> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
       child: InkWell(
+      key: Key('homebutton-${widget.menu.category}-isHome-${widget.isHome}'),
       onTap: widget.isHome?(){
+        print('homebutton-${widget.menu.category}-isHome-${widget.isHome}');
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context){

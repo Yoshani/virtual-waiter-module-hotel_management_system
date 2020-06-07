@@ -1,7 +1,6 @@
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:flutter/services.dart';
+import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:smooth_star_rating/smooth_star_rating.dart'; 
 import 'bottom_nav_bar.dart';
 
@@ -25,25 +24,13 @@ class CustomerFeedback extends StatefulWidget {
 class _CustomerFeedbackState extends State<CustomerFeedback> {
   final _formKey = GlobalKey<FormState>();
 
-    // form values
+  // form values
   String _customerName;
   String _feedback;
   double rating = 0;
 
   @override
   Widget build(BuildContext context) {
-
-    // Future<bool> check() async {
-    //   var connectivityResult = await (Connectivity().checkConnectivity());
-    //   if (connectivityResult == ConnectivityResult.mobile) {
-    //     print('Connected to a mobile network.');
-    //     return true;
-    //   } else if (connectivityResult == ConnectivityResult.wifi) {
-    //     print('Connected to a wifi network.');
-    //     return true;
-    //   }
-    //   return false;
-    // }
  
     return Scaffold(
       resizeToAvoidBottomPadding: false,
@@ -113,6 +100,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
+                    key: Key('name'),
                     decoration: const InputDecoration(
                         icon: const Icon(Icons.person),
                         hintText: 'Enter your first and last name',
@@ -140,6 +128,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
+                    key: Key('feedback'),
                     keyboardType: TextInputType.multiline,
                     maxLines: null,
                     decoration: const InputDecoration(
@@ -188,6 +177,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                   SizedBox(height: 40.0),
 
                   RaisedButton(
+                    key: Key('submitfeedbackbutton'),
                     color: Colors.cyan[400],
                     child: Text(
                       'Submit',
@@ -200,7 +190,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                     onPressed: () async {
                       SystemChrome.setEnabledSystemUIOverlays ([]);
                       if(_formKey.currentState.validate()){
-                        // VWaiterDatabase2().submitFeedback(_customerName, _feedback, rating);
+                        VWaiterDatabase2().submitFeedback(_customerName, _feedback, rating);
                         Navigator.popUntil(context, ModalRoute.withName('/'));
                         showDialog(
                           context: context,
@@ -228,6 +218,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                   ),
                   SizedBox(height: 20,),
                   RaisedButton(
+                    key: Key('skipfeedbackbutton'),
                     color: Colors.grey[100],
                     child: Text(
                       'Skip',

@@ -25,6 +25,7 @@ class _MenuListState extends State<MenuList> {
     return Container(
       height: 65.0,
       child: ListView.builder(
+        key: Key('home-page-cat-list'),
         itemCount: menuItems.length,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
