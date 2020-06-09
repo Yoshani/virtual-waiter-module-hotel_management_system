@@ -63,6 +63,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
             SizedBox(height: 20.0),
               Container(
                 height: 65.0,
+                //display the menu list
                 child: ListView.builder(
                   itemCount: widget.menuList.length,
                   scrollDirection: Axis.horizontal,
@@ -149,6 +150,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                               ),
                               Column(
                                 children: <Widget>[
+                                  //increase quantity
                                   IconButton(
                                     key: Key('increase-quantity'),
                                     icon: Icon(
@@ -159,6 +161,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                       add();
                                     })
                                   ),
+                                  //decrease quantity
                                   IconButton(
                                     key: Key('decrease-quantity'),
                                     icon: Icon(
@@ -212,7 +215,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         ),
                       ],
                     ),
-                    
+                    //add item to cart if qunatity is not zero
                     onPressed: (){
                       if(quantity==0){ 
                         showDialog(

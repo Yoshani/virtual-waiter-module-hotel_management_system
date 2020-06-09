@@ -43,7 +43,7 @@ class _VwaiterHomeState extends State<VwaiterHome> {
   }
 
   Widget build(BuildContext context) {
-
+    //bottom panel for virtual waiter settings
     void _showSettingsPanel() {
       showModalBottomSheet(context: context, builder: (context) {
         return Container(
@@ -53,7 +53,7 @@ class _VwaiterHomeState extends State<VwaiterHome> {
         );
       });
     }
-
+    //provides menu categories to child widgets
     return StreamProvider<List<Menu>>.value(
       value: VWaiterDatabase2().menu,
       child: Scaffold(

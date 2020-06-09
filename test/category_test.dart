@@ -11,7 +11,6 @@ void main() {
     await tester.pumpWidget(
       MaterialApp(
         home: CategoriesScreen(
-          category: "Test",
           menu: menu,
         )
       ),

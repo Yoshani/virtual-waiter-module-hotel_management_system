@@ -10,11 +10,13 @@ import 'offer_tile_item.dart';
 class OfferTile extends StatefulWidget {
   final Offer offer;
   final VoidCallback offerPageState;
+  final int index;
 
 
   OfferTile({
     @required this.offer,
-    this.offerPageState
+    this.offerPageState,
+    this.index
     });
 
   @override
@@ -31,7 +33,7 @@ class _OfferTileState extends State<OfferTile> {
     String formatDate(DateTime date){
       return DateFormat.yMMMd().format(date);
     }
-
+    //future builder prevents destroying out of screen offers
     return KeepAliveFutureBuilder(
       future: VWaiterDatabase2().getOfferItems(widget.offer.items),
       builder: (context, snapshot) {
@@ -102,7 +104,7 @@ class _OfferTileState extends State<OfferTile> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
                       Text(
-                        "Grab this meal for only Rs. ${widget.offer.price}",
+                        "Grab this offer for only Rs. ${widget.offer.price}",
                         style: TextStyle(
                           color: Colors.red,
                           fontWeight: FontWeight.w900,
@@ -111,8 +113,9 @@ class _OfferTileState extends State<OfferTile> {
                       ),
                       Container(
                         height: 40.0,
+                        //add offer to cart
                         child: RaisedButton(
-                          key: Key("add-offer-${widget.offer.name}-to-cart"),
+                          key: Key("add-offer-${widget.index}-to-cart"),
                           elevation: 3.0,
                           color: Colors.red[900],
                           shape: RoundedRectangleBorder(
@@ -132,7 +135,7 @@ class _OfferTileState extends State<OfferTile> {
                           ),
 
                           onPressed: (){
-                            print("add-offer-${widget.offer.name}-to-cart");
+                            print("add-offer-${widget.index}-to-cart");
                             Cart.cartItems.add(CartItem(
                             offer: widget.offer,
                             quantity: 1,

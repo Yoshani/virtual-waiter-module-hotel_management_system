@@ -8,7 +8,8 @@ class NoOffers extends StatefulWidget {
 class _NoOffersState extends State<NoOffers> {
 
   @override
-  Widget build(BuildContext context) {         
+  Widget build(BuildContext context) {  
+    //display widget if no offers are available       
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

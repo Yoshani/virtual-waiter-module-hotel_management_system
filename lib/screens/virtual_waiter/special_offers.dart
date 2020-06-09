@@ -85,6 +85,7 @@ class _OffersState extends State<Offers> {
                   shrinkWrap: true,
                   itemBuilder: (context, index) {
                     return OfferTile(
+                      index: index,
                       offer: offerList[index],
                       offerPageState: setPageState,
                     );

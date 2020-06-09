@@ -7,11 +7,13 @@ class HomeMenuTile extends StatefulWidget {
   final Menu menu;
   final Function tap;
   final bool isHome;
+  final int index;
 
   HomeMenuTile({
     @required this.menu,
     this.tap,
-    this.isHome
+    this.isHome,
+    this.index
     });
 
   @override
@@ -24,14 +26,14 @@ class _HomeMenuTileState extends State<HomeMenuTile> {
     return Padding(
       padding: const EdgeInsets.fromLTRB(0.0, 0.0, 40.0, 0.0),
       child: InkWell(
-      key: Key('homebutton-${widget.menu.category}-isHome-${widget.isHome}'),
+      key: Key('homebutton-${widget.index}'), //key index is given a value only if it is called from vwaiter hompage, otherwise null
       onTap: widget.isHome?(){
-        print('homebutton-${widget.menu.category}-isHome-${widget.isHome}');
+        print('homebutton-${widget.index}');
         Navigator.of(context).push(
           MaterialPageRoute(
             builder: (BuildContext context){
               return CategoriesScreen(
-                category: widget.menu.category, 
+                index: widget.index,
                 menu: widget.menu,
               );
             },

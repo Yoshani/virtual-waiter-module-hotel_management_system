@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//future builder to prevent children from being deleted when it goes out of screen
 class KeepAliveFutureBuilder extends StatefulWidget {
 
   final Future future;

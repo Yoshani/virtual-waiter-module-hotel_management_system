@@ -19,7 +19,7 @@ class MenuList extends StatefulWidget {
 class _MenuListState extends State<MenuList> {
   @override
   Widget build(BuildContext context) {
-
+    //provider to provide list of menu categories
     final menuItems = Provider.of<List<Menu>>(context) ?? [];
 
     return Container(
@@ -31,6 +31,7 @@ class _MenuListState extends State<MenuList> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           return HomeMenuTile(
+            index: index,
             menu: menuItems[index], 
             isHome: widget.isHome
           );

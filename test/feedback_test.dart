@@ -6,6 +6,7 @@ import 'package:smooth_star_rating/smooth_star_rating.dart';
 void main() {
 
   testWidgets('Feedback page test',(WidgetTester tester) async {
+    //adjust test screen size
     tester.binding.window.physicalSizeTestValue = Size(1536, 2048);
     tester.binding.window.devicePixelRatioTestValue = 1.0;
 

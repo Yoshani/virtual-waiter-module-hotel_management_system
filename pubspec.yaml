@@ -41,6 +41,7 @@ dependencies:
   cached_network_image: ^2.1.0+1
   connectivity: ^0.4.8+6
   http: ^0.12.1
+  battery: ^1.0.1
 
 
 dev_dependencies:

@@ -7,10 +7,12 @@ import 'package:hotel_management_system/screens/virtual_waiter/item.dart';
 class ItemTile extends StatefulWidget {
   final Item item;
   final List<Menu> menuList;
+  final int index;
 
   ItemTile({
     @required this.item,
     this.menuList,
+    this.index
     });
 
   @override
@@ -21,7 +23,7 @@ class _ItemTileState extends State<ItemTile> {
 
   @override
   Widget build(BuildContext context) {
-
+    // cached network image to set item image
     var image = CachedNetworkImage(
       imageUrl: widget.item.image,
       placeholder:(context, url) => Image.asset('assets/setloader.gif'),
@@ -30,8 +32,9 @@ class _ItemTileState extends State<ItemTile> {
     );
 
     return InkWell(
-    key: Key('${widget.item.name}'),
+    key: Key('item-${widget.index}'),
     onTap: (){
+      print('item-${widget.index}');
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (BuildContext context){

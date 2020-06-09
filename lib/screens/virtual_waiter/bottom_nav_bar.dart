@@ -18,6 +18,7 @@ class BottomNavigation extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           SizedBox(width:7),
+          //navigate to home
           IconButton(
             key: Key('homebutton'),
             icon: Icon(
@@ -36,6 +37,7 @@ class BottomNavigation extends StatelessWidget {
           Cart.cartItems.isNotEmpty ? 
             Stack(
               children: <Widget>[
+                //navigate to cart
                 IconButton(
                   key: Key('cartbutton'),
                   icon: Icon(
@@ -84,7 +86,7 @@ class BottomNavigation extends StatelessWidget {
             color:Colors.lightBlue[400],
             onPressed: (){
               if(route.settings.name != cart){
-                      Navigator.pushNamed(context, cart);
+                Navigator.pushNamed(context, cart);
               }
             },
           ),         
@@ -95,7 +97,7 @@ class BottomNavigation extends StatelessWidget {
               size: 24.0,
               color: Colors.white
             ),
-
+          //navigate to order status tab
           IconButton(
             key: Key('statusbutton'),
             icon: Icon(
@@ -110,7 +112,7 @@ class BottomNavigation extends StatelessWidget {
               }
             },
           ),
-
+          //navigate to feedback page
           IconButton(
             key: Key('feedbackbutton'),
             icon: Icon(

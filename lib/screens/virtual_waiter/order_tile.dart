@@ -42,6 +42,7 @@ class _OrderTileState extends State<OrderTile> {
             );         
           break;
         case "served":
+        //if served, display finish button
         return Container(
                   color: Colors.white,
                   height: 80.0,

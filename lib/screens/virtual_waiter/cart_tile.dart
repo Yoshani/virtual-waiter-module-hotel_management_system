@@ -3,6 +3,7 @@ import 'package:hotel_management_system/models/vWaiter/cartItem.dart';
 import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'cart.dart';
 
+//check if cart item is Item type or Offer type
 class CheckItemType{
   static bool checkItemType(CartItem cartItem){
     if(cartItem.item is Item){
@@ -58,6 +59,7 @@ class _CartTileState extends State<CartTile> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
+                    //increase quantity
                     GestureDetector(
                       key: Key('addbutton'),
                       child: Icon(
@@ -80,6 +82,7 @@ class _CartTileState extends State<CartTile> {
                       ),
                     ),
                     SizedBox(width: 10.0),
+                    //decrease quantity
                     GestureDetector(
                       key: Key('subtractbutton'),
                       child: Icon(
@@ -88,6 +91,7 @@ class _CartTileState extends State<CartTile> {
                       size: 25,
                       ),
                       onTap: (){
+                        //cannot decrease quantity below 1
                         if(widget.cartItem.quantity!=1){
                           widget.cartItem.quantity--;
                           widget.onCartChanged();
@@ -132,6 +136,7 @@ class _CartTileState extends State<CartTile> {
             ),
             Align(
               alignment: Alignment.topRight,
+              //remove button
               child: IconButton(
                 key: Key('removebutton'),
                 icon: Icon(

@@ -75,6 +75,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                 )
               ),
             ),
+          //form to get feedback
           Form(
             key: _formKey,
             autovalidate: true,
@@ -175,7 +176,7 @@ class _CustomerFeedbackState extends State<CustomerFeedback> {
                   ),
                   
                   SizedBox(height: 40.0),
-
+                  //submit feedback button
                   RaisedButton(
                     key: Key('submitfeedbackbutton'),
                     color: Colors.cyan[400],

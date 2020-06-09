@@ -10,11 +10,12 @@ import 'item_tile.dart';
 
 
 class CategoriesScreen extends StatefulWidget {
-  final String category;
+
   final Menu menu;
+  final int index;
 
 
-  CategoriesScreen({this.category, this.menu});
+  CategoriesScreen({this.menu, this.index});
   @override
   _CategoriesScreenState createState() => _CategoriesScreenState();
 }
@@ -119,12 +120,13 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                           height: MediaQuery.of(context).size.height / 4,
                           width: MediaQuery.of(context).size.width,
                           child: ListView.builder(
-                            key: Key('${menu.category}-category-list'),
+                            key: Key('category-list-${widget.index}'),
                             scrollDirection: Axis.vertical,
                             itemCount: itemList.length,
                             shrinkWrap: true,
                             itemBuilder: (context, index) {
                             return ItemTile(
+                              index: index,
                               item: itemList[index],
                               menuList: menuList
                             );

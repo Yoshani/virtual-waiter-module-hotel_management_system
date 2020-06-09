@@ -1,7 +1,9 @@
 import 'package:hotel_management_system/services/auth.dart';
 import 'package:hotel_management_system/shades/constants.dart';
+import 'package:hotel_management_system/shades/error_alert.dart';
 import 'package:hotel_management_system/shades/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:hotel_management_system/shades/check_internet_connectivity.dart';
 
 
 class EmailFieldValidator {
@@ -91,18 +93,28 @@ class _SignInState extends State<SignIn> {
                     fontSize: 17
                   ),
                 ),
-                onPressed: () async {
-                  if(_formKey.currentState.validate()){
-                    setState(() => loading = true);
-                    dynamic result = await _auth.signInWithEmailAndPassword(email, password);
-                    if(result == null) {
-                      setState(() {
-                        loading = false;
-                        error = 'Could not sign in with those credentials';
-                      });
-                    }
-                  }
-                }
+                onPressed: () {
+                  check().then((internet) async {
+                    if (internet != null && internet ) {
+                      if(_formKey.currentState.validate()){
+                        setState(() => loading = true);
+                        dynamic result = await _auth.signInWithEmailAndPassword(email, password);
+                        if(result == null) {
+                          setState(() {
+                            loading = false;
+                            error = 'Could not sign in with those credentials';
+                          });
+                        }
+                      }
+                    }else{
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {                   
+                        return doAlert("Please connect your device to wifi or mobile data to proceed", context); 
+                    });
+                    }                   
+                });
+              }
               ),
               SizedBox(height: 12.0),
               Text(
