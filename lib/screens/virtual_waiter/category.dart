@@ -4,7 +4,7 @@ import 'package:hotel_management_system/models/vWaiter/item.dart';
 import 'package:hotel_management_system/models/vWaiter/menu.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/home_menu_tile.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
-import 'package:hotel_management_system/shades/loading.dart';
+import 'package:hotel_management_system/shared/loading.dart';
 import 'bottom_nav_bar.dart';
 import 'item_tile.dart';
 

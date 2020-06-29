@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/shared_preferences.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
 import 'package:hotel_management_system/models/vWaiter/restaurantTable.dart';
-import 'package:hotel_management_system/shades/constants.dart';
+import 'package:hotel_management_system/shared/constants.dart';
 
 
 class Settings extends StatefulWidget {

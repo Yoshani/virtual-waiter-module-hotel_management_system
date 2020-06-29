@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:hotel_management_system/models/vWaiter/offer.dart';
 import 'package:hotel_management_system/screens/virtual_waiter/no_offers.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
-import 'package:hotel_management_system/shades/loading.dart';
+import 'package:hotel_management_system/shared/loading.dart';
 import 'bottom_nav_bar.dart';
 import 'offer_tile.dart';
 

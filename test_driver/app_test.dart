@@ -67,7 +67,7 @@ void main() {
     test("view feedback tab", () async{
         final feedbackButton = find.byValueKey('feedbackbutton');
         await driver.waitFor(feedbackButton);
-        await driver.tap(feedbackButton);;
+        await driver.tap(feedbackButton);
     });
 
     test("navigate to home", () async{

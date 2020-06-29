@@ -1,9 +1,9 @@
 import 'package:hotel_management_system/services/auth.dart';
-import 'package:hotel_management_system/shades/constants.dart';
-import 'package:hotel_management_system/shades/error_alert.dart';
-import 'package:hotel_management_system/shades/loading.dart';
+import 'package:hotel_management_system/shared/constants.dart';
+import 'package:hotel_management_system/shared/error_alert.dart';
+import 'package:hotel_management_system/shared/loading.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_management_system/shades/check_internet_connectivity.dart';
+import 'package:hotel_management_system/shared/check_internet_connectivity.dart';
 
 
 class EmailFieldValidator {

@@ -18,6 +18,7 @@ class KeepAliveFutureBuilder extends StatefulWidget {
 class _KeepAliveFutureBuilderState extends State<KeepAliveFutureBuilder> with AutomaticKeepAliveClientMixin {
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return FutureBuilder(
       future: widget.future,
       builder: widget.builder,

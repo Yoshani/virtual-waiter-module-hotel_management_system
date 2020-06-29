@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_management_system/models/vWaiter/order.dart';
 import 'package:hotel_management_system/services/vwaiter_database2.dart';
-import 'package:hotel_management_system/shades/loading.dart';
+import 'package:hotel_management_system/shared/loading.dart';
 import 'bottom_nav_bar.dart';
 import 'order_tile.dart';
 
